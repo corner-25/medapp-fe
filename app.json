@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Healthcare",
-    "slug": "healthcare-app",
+    "slug": "va-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -45,7 +45,7 @@
     "scheme": "healthcare",
     "extra": {
       "eas": {
-        "projectId": "your-project-id-here"
+        "projectId": "5f36445e-b21f-4776-b58f-d02e2bf9d06c"
       }
     }
   }
