@@ -1,0 +1,87 @@
+{
+  "name": "healthcare-app",
+  "version": "1.0.0",
+  "description": "Healthcare app for Vietnamese overseas - Đặt khám bệnh và gọi cấp cứu cho người thân Việt kiều",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "build:android": "eas build --platform android",
+    "build:ios": "eas build --platform ios",
+    "build": "eas build",
+    "submit:android": "eas submit --platform android",
+    "submit:ios": "eas submit --platform ios",
+    "submit": "eas submit",
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@expo/json-file": "^9.1.5",
+    "@invertase/react-native-apple-authentication": "^2.4.1",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/datetimepicker": "8.4.4",
+    "@react-native-google-signin/google-signin": "^16.0.0",
+    "@react-navigation/bottom-tabs": "^6.6.1",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/stack": "^6.4.1",
+    "crypto-js": "^4.2.0",
+    "debug": "^4.3.4",
+    "expo": "^54.0.20",
+    "expo-font": "~14.0.9",
+    "expo-linking": "~8.0.8",
+    "expo-splash-screen": "~31.0.10",
+    "expo-status-bar": "~3.0.8",
+    "expo-system-ui": "~6.0.8",
+    "expo-updates": "~29.0.12",
+    "expo-web-browser": "~15.0.8",
+    "json5": "^2.2.3",
+    "react": "19.1.0",
+    "react-native": "^0.81.5",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-reanimated": "~4.1.1",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "react-native-vector-icons": "^10.0.3",
+    "react-native-worklets": "~0.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~19.1.10",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "babel-preset-expo": "^54.0.2",
+    "eslint": "^8.57.0",
+    "eslint-config-expo": "~10.0.0",
+    "jest": "^29.2.1",
+    "jest-expo": "~54.0.13",
+    "typescript": "~5.9.2"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "private": true,
+  "keywords": [
+    "healthcare",
+    "vietnam",
+    "overseas",
+    "medical",
+    "emergency",
+    "react-native",
+    "expo"
+  ],
+  "author": {
+    "name": "Healthcare Team",
+    "email": "contact@healthcare-app.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/healthcare-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/healthcare-app/issues"
+  },
+  "homepage": "https://github.com/your-username/healthcare-app#readme"
+}
