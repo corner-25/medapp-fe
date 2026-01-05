@@ -33,11 +33,22 @@ const ServiceDetailScreen = ({ navigation, route }) => {
   const loadServiceDetails = async () => {
     try {
       setLoading(true);
+
+      // Check if service was passed from previous screen
+      const passedService = route.params?.service;
+      if (passedService) {
+        setService(passedService);
+        setLoading(false);
+        return;
+      }
+
+      // Otherwise load from API
       const response = await servicesService.getById(serviceId);
       console.log('Service detail response:', response);
 
-      if (response.success && response.data) {
-        setService(response.data);
+      // Backend returns service object directly, not wrapped in success/data
+      if (response && response._id) {
+        setService(response);
       } else {
         throw new Error('Không thể lấy thông tin dịch vụ');
       }
