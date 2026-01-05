@@ -12,7 +12,7 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -92,7 +92,7 @@ const handleRegister = async () => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Đăng ký</Text>
       </View>
@@ -104,7 +104,7 @@ const handleRegister = async () => {
         <ScrollView style={styles.formContainer}>
           <Text style={styles.label}>Họ và tên</Text>
           <View style={styles.inputContainer}>
-            <Icon name="person-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="person-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập họ và tên"
@@ -116,7 +116,7 @@ const handleRegister = async () => {
           
           <Text style={styles.label}>Email</Text>
           <View style={styles.inputContainer}>
-            <Icon name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập địa chỉ email"
@@ -130,7 +130,7 @@ const handleRegister = async () => {
           
           <Text style={styles.label}>Số điện thoại</Text>
           <View style={styles.inputContainer}>
-            <Icon name="call-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="call-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập số điện thoại"
@@ -143,7 +143,7 @@ const handleRegister = async () => {
           
           <Text style={styles.label}>Địa chỉ</Text>
           <View style={styles.inputContainer}>
-            <Icon name="location-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="location-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập địa chỉ của bạn"
@@ -155,7 +155,7 @@ const handleRegister = async () => {
           
           <Text style={styles.label}>Mật khẩu</Text>
           <View style={styles.inputContainer}>
-            <Icon name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập mật khẩu"
@@ -168,13 +168,13 @@ const handleRegister = async () => {
               style={styles.passwordToggle}
               onPress={() => setShowPassword(!showPassword)}
             >
-              <Icon name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
+              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
             </TouchableOpacity>
           </View>
           
           <Text style={styles.label}>Xác nhận mật khẩu</Text>
           <View style={styles.inputContainer}>
-            <Icon name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập lại mật khẩu"
@@ -187,7 +187,7 @@ const handleRegister = async () => {
               style={styles.passwordToggle}
               onPress={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              <Icon name={showConfirmPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
+              <Ionicons name={showConfirmPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
             </TouchableOpacity>
           </View>
           
@@ -197,7 +197,7 @@ const handleRegister = async () => {
             disabled={loading}
           >
             <View style={[styles.checkbox, agreeTerms && styles.checkboxSelected]}>
-              {agreeTerms && <Icon name="checkmark" size={16} color="#fff" />}
+              {agreeTerms && <Ionicons name="checkmark" size={16} color="#fff" />}
             </View>
             <Text style={styles.termsText}>
               Tôi đồng ý với <Text style={styles.termsLink}>Điều khoản sử dụng</Text> và <Text style={styles.termsLink}>Chính sách bảo mật</Text>
@@ -224,13 +224,13 @@ const handleRegister = async () => {
           
           <View style={styles.socialContainer}>
             <TouchableOpacity style={styles.socialButton}>
-              <Icon name="logo-google" size={24} color="#DB4437" />
+              <Ionicons name="logo-google" size={24} color="#DB4437" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
-              <Icon name="logo-facebook" size={24} color="#4267B2" />
+              <Ionicons name="logo-facebook" size={24} color="#4267B2" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
-              <Icon name="logo-apple" size={24} color="#000" />
+              <Ionicons name="logo-apple" size={24} color="#000" />
             </TouchableOpacity>
           </View>
           

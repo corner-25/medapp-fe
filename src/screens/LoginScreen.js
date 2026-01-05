@@ -8,7 +8,7 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 
 const LoginScreen = ({ navigation }) => {
   // Xử lý nút quay lại
@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
         style={styles.backButton}
         onPress={handleBackToHome}
       >
-        <Icon name="arrow-back" size={24} color="#333" />
+        <Ionicons name="arrow-back" size={24} color="#333" />
       </TouchableOpacity>
       
       <View style={styles.logoContainer}>

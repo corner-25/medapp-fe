@@ -12,7 +12,7 @@ import {
   RefreshControl,
   Share,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { analysesService } from '../services/apiService';
@@ -219,7 +219,7 @@ Ghi chú: ${analysis.description || 'Không có'}
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết phân tích</Text>
         </View>
@@ -240,12 +240,12 @@ Ghi chú: ${analysis.description || 'Không có'}
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết phân tích</Text>
         </View>
         <View style={styles.errorContainer}>
-          <Icon name="alert-circle-outline" size={80} color="#E0E0E0" />
+          <Ionicons name="alert-circle-outline" size={80} color="#E0E0E0" />
           <Text style={styles.errorTitle}>Không tìm thấy dữ liệu</Text>
           <Text style={styles.errorMessage}>Không thể tải thông tin phân tích</Text>
         </View>
@@ -263,14 +263,14 @@ Ghi chú: ${analysis.description || 'Không có'}
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Chi tiết phân tích</Text>
         <TouchableOpacity 
           style={styles.shareButton}
           onPress={handleExportResults}
         >
-          <Icon name="share-outline" size={24} color="#4285F4" />
+          <Ionicons name="share-outline" size={24} color="#4285F4" />
         </TouchableOpacity>
       </View>
 
@@ -289,7 +289,7 @@ Ghi chú: ${analysis.description || 'Không có'}
         <View style={styles.analysisCard}>
           <View style={styles.analysisHeader}>
             <View style={[styles.categoryIcon, { backgroundColor: getCategoryColor(analysis.category) }]}>
-              <Icon 
+              <Ionicons 
                 name={getCategoryIcon(analysis.category)} 
                 size={24} 
                 color="white" 
@@ -312,7 +312,7 @@ Ghi chú: ${analysis.description || 'Không có'}
           <View style={styles.patientCard}>
             <Text style={styles.sectionTitle}>Thông tin bệnh nhân</Text>
             <View style={styles.patientInfo}>
-              <Icon name="person-outline" size={20} color="#4285F4" />
+              <Ionicons name="person-outline" size={20} color="#4285F4" />
               <Text style={styles.patientText}>
                 {selectedPatient.name} • {selectedPatient.age} tuổi • {selectedPatient.relationship}
               </Text>
@@ -328,7 +328,7 @@ Ghi chú: ${analysis.description || 'Không có'}
           </View>
         ) : (
           <View style={styles.noResultsCard}>
-            <Icon name="time-outline" size={40} color="#FF9800" />
+            <Ionicons name="time-outline" size={40} color="#FF9800" />
             <Text style={styles.noResultsTitle}>Chưa có kết quả</Text>
             <Text style={styles.noResultsMessage}>
               Kết quả chi tiết sẽ được cập nhật sau khi xét nghiệm hoàn thành
@@ -358,9 +358,9 @@ Ghi chú: ${analysis.description || 'Không có'}
           <View style={styles.reportCard}>
             <Text style={styles.sectionTitle}>Báo cáo chi tiết</Text>
             <TouchableOpacity style={styles.reportButton}>
-              <Icon name="document-text-outline" size={20} color="#4285F4" />
+              <Ionicons name="document-text-outline" size={20} color="#4285F4" />
               <Text style={styles.reportButtonText}>Xem báo cáo đầy đủ</Text>
-              <Icon name="open-outline" size={16} color="#4285F4" />
+              <Ionicons name="open-outline" size={16} color="#4285F4" />
             </TouchableOpacity>
           </View>
         )}
@@ -372,7 +372,7 @@ Ghi chú: ${analysis.description || 'Không có'}
           style={styles.exportButton}
           onPress={handleExportResults}
         >
-          <Icon name="download-outline" size={20} color="white" />
+          <Ionicons name="download-outline" size={20} color="white" />
           <Text style={styles.exportButtonText}>Xuất kết quả</Text>
         </TouchableOpacity>
       </View>

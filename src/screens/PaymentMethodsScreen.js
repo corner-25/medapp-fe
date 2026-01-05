@@ -10,7 +10,7 @@ import {
   Alert,
   Modal
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const PaymentMethodsScreen = ({ navigation }) => {
@@ -125,7 +125,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
       onPress={() => handleCardPress(item)}
     >
       <View style={[styles.cardIconContainer, { backgroundColor: getCardColor(item.type) }]}>
-        <Icon name={getCardIcon(item.type)} size={24} color="#fff" />
+        <Ionicons name={getCardIcon(item.type)} size={24} color="#fff" />
       </View>
       
       <View style={styles.cardInfo}>
@@ -145,7 +145,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
   // Render khi không có phương thức thanh toán
   const renderEmptyPaymentMethods = () => (
     <View style={styles.emptyContainer}>
-      <Icon name="card-outline" size={80} color="#ddd" />
+      <Ionicons name="card-outline" size={80} color="#ddd" />
       <Text style={styles.emptyText}>Bạn chưa có phương thức thanh toán nào</Text>
       <Text style={styles.emptySubtext}>Thêm phương thức thanh toán để thanh toán nhanh chóng</Text>
     </View>
@@ -161,7 +161,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Phương thức thanh toán</Text>
       </View>
@@ -180,7 +180,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
         style={styles.addButton}
         onPress={() => setAddCardModalVisible(true)}
       >
-        <Icon name="add" size={24} color="#fff" />
+        <Ionicons name="add" size={24} color="#fff" />
         <Text style={styles.addButtonText}>Thêm phương thức thanh toán</Text>
       </TouchableOpacity>
 
@@ -199,7 +199,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
                 style={styles.closeButton}
                 onPress={() => setAddCardModalVisible(false)}
               >
-                <Icon name="close" size={24} color="#000" />
+                <Ionicons name="close" size={24} color="#000" />
               </TouchableOpacity>
             </View>
             
@@ -210,9 +210,9 @@ const PaymentMethodsScreen = ({ navigation }) => {
                   style={styles.cardTypeItem}
                   onPress={() => handleAddCardType(item)}
                 >
-                  <Icon name={item.icon} size={24} color={getCardColor(item.id)} />
+                  <Ionicons name={item.icon} size={24} color={getCardColor(item.id)} />
                   <Text style={styles.cardTypeName}>{item.name}</Text>
-                  <Icon name="chevron-forward" size={20} color="#ccc" />
+                  <Ionicons name="chevron-forward" size={20} color="#ccc" />
                 </TouchableOpacity>
               )}
               keyExtractor={(item) => item.id}

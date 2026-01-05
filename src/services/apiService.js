@@ -211,12 +211,12 @@ export const medicalRecordsService = {
 
   create: async (recordData) => {
     const headers = await getAuthHeaders();
-    const response = await fetch(API_ENDPOINTS.MEDICAL_RECORDS(recordData.patient), {
+    const response = await fetch(API_ENDPOINTS.MEDICAL_RECORDS_CREATE, {
       method: 'POST',
       headers,
       body: JSON.stringify(recordData),
     });
-    return handleResponse(response, API_ENDPOINTS.MEDICAL_RECORDS(recordData.patient));
+    return handleResponse(response, API_ENDPOINTS.MEDICAL_RECORDS_CREATE);
   },
 
   update: async (id, recordData) => {
@@ -261,41 +261,41 @@ export const vaccinesService = {
 
   create: async (vaccineData) => {
     const headers = await getAuthHeaders();
-    const response = await fetch(API_ENDPOINTS.VACCINES(vaccineData.patient), {
+    const response = await fetch(API_ENDPOINTS.VACCINES_CREATE, {
       method: 'POST',
       headers,
       body: JSON.stringify(vaccineData),
     });
-    return handleResponse(response, API_ENDPOINTS.VACCINES(vaccineData.patient));
+    return handleResponse(response, API_ENDPOINTS.VACCINES_CREATE);
   },
 
   update: async (id, vaccineData) => {
     const headers = await getAuthHeaders();
-    const response = await fetch(API_ENDPOINTS.VACCINE_BY_ID(id), {
+    const response = await fetch(API_ENDPOINTS.VACCINE_UPDATE(id), {
       method: 'PUT',
       headers,
       body: JSON.stringify(vaccineData),
     });
-    return handleResponse(response, API_ENDPOINTS.VACCINE_BY_ID(id));
+    return handleResponse(response, API_ENDPOINTS.VACCINE_UPDATE(id));
   },
 
   addDose: async (id, doseData) => {
     const headers = await getAuthHeaders();
-    const response = await fetch(`${API_ENDPOINTS.VACCINE_BY_ID(id)}/dose`, {
+    const response = await fetch(API_ENDPOINTS.VACCINE_ADD_DOSE(id), {
       method: 'POST',
       headers,
       body: JSON.stringify(doseData),
     });
-    return handleResponse(response, `${API_ENDPOINTS.VACCINE_BY_ID(id)}/dose`);
+    return handleResponse(response, API_ENDPOINTS.VACCINE_ADD_DOSE(id));
   },
 
   delete: async (id) => {
     const headers = await getAuthHeaders();
-    const response = await fetch(API_ENDPOINTS.VACCINE_BY_ID(id), {
+    const response = await fetch(API_ENDPOINTS.VACCINE_DELETE(id), {
       method: 'DELETE',
       headers,
     });
-    return handleResponse(response, API_ENDPOINTS.VACCINE_BY_ID(id));
+    return handleResponse(response, API_ENDPOINTS.VACCINE_DELETE(id));
   },
 };
 
@@ -497,5 +497,99 @@ export const orderService = {
       headers,
     });
     return handleResponse(response, API_ENDPOINTS.ORDER_CANCEL(id));
+  }
+};
+
+// Services API
+export const servicesService = {
+  // Lấy tất cả dịch vụ với phân trang và filter
+  getAll: async (params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    const url = queryString ? `${API_ENDPOINTS.SERVICES}?${queryString}` : API_ENDPOINTS.SERVICES;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    return handleResponse(response, url);
+  },
+
+  // Lấy dịch vụ theo ID
+  getById: async (id) => {
+    const response = await fetch(API_ENDPOINTS.SERVICE_BY_ID(id), {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    return handleResponse(response, API_ENDPOINTS.SERVICE_BY_ID(id));
+  },
+
+  // Lấy dịch vụ phổ biến
+  getPopular: async (limit = 6) => {
+    const url = `${API_ENDPOINTS.SERVICES_POPULAR}?limit=${limit}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    return handleResponse(response, url);
+  },
+
+  // Lấy dịch vụ theo danh mục
+  getByCategory: async (category) => {
+    const response = await fetch(API_ENDPOINTS.SERVICES_CATEGORY(category), {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    return handleResponse(response, API_ENDPOINTS.SERVICES_CATEGORY(category));
+  },
+
+  // Tìm kiếm dịch vụ
+  search: async (params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    const url = queryString ? `${API_ENDPOINTS.SERVICES_SEARCH}?${queryString}` : API_ENDPOINTS.SERVICES_SEARCH;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    return handleResponse(response, url);
+  },
+
+  // Lấy danh sách categories
+  getCategories: async () => {
+    const response = await fetch(API_ENDPOINTS.SERVICES_CATEGORIES, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    return handleResponse(response, API_ENDPOINTS.SERVICES_CATEGORIES);
+  },
+
+  // Lấy thống kê dịch vụ
+  getStats: async () => {
+    const response = await fetch(API_ENDPOINTS.SERVICES_STATS, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+    return handleResponse(response, API_ENDPOINTS.SERVICES_STATS);
   }
 };

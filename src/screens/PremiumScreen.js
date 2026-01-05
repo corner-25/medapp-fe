@@ -10,7 +10,7 @@ import {
   Alert,
   Dimensions
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
@@ -115,7 +115,7 @@ const PremiumScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Nâng cấp Premium</Text>
       </View>
@@ -147,7 +147,7 @@ const PremiumScreen = ({ navigation }) => {
               <View style={styles.planHeader}>
                 <Text style={styles.planTitle}>Hàng tháng</Text>
                 {selectedPlan === 'monthly' && (
-                  <Icon name="checkmark-circle" size={24} color="#4285F4" />
+                  <Ionicons name="checkmark-circle" size={24} color="#4285F4" />
                 )}
               </View>
               <Text style={styles.planPrice}>50.000đ/tháng</Text>
@@ -164,7 +164,7 @@ const PremiumScreen = ({ navigation }) => {
               <View style={styles.planHeader}>
                 <Text style={styles.planTitle}>Hàng năm</Text>
                 {selectedPlan === 'yearly' && (
-                  <Icon name="checkmark-circle" size={24} color="#4285F4" />
+                  <Ionicons name="checkmark-circle" size={24} color="#4285F4" />
                 )}
               </View>
               <View style={styles.bestDealBadge}>
@@ -183,7 +183,7 @@ const PremiumScreen = ({ navigation }) => {
             {premiumBenefits.map((benefit) => (
               <View key={benefit.id} style={styles.benefitItem}>
                 <View style={styles.benefitIcon}>
-                  <Icon name={benefit.icon} size={24} color="#4285F4" />
+                  <Ionicons name={benefit.icon} size={24} color="#4285F4" />
                 </View>
                 <View style={styles.benefitContent}>
                   <Text style={styles.benefitTitle}>{benefit.title}</Text>

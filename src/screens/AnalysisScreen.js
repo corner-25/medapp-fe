@@ -11,7 +11,7 @@ import {
   RefreshControl,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { analysesService } from '../services/apiService';
@@ -185,7 +185,7 @@ const AnalysisScreen = ({ navigation, route }) => {
     >
       <View style={styles.analysisHeader}>
         <View style={[styles.categoryIcon, { backgroundColor: getCategoryColor(item.category) }]}>
-          <Icon 
+          <Ionicons 
             name={getCategoryIcon(item.category)} 
             size={20} 
             color="white" 
@@ -198,12 +198,12 @@ const AnalysisScreen = ({ navigation, route }) => {
         <View style={styles.analysisStatus}>
           {hasResults(item) ? (
             <View style={styles.hasResultsBadge}>
-              <Icon name="checkmark-circle" size={16} color="#4CAF50" />
+              <Ionicons name="checkmark-circle" size={16} color="#4CAF50" />
               <Text style={styles.hasResultsText}>Có kết quả</Text>
             </View>
           ) : (
             <View style={styles.noResultsBadge}>
-              <Icon name="time-outline" size={16} color="#FF9800" />
+              <Ionicons name="time-outline" size={16} color="#FF9800" />
               <Text style={styles.noResultsText}>Chờ kết quả</Text>
             </View>
           )}
@@ -216,12 +216,12 @@ const AnalysisScreen = ({ navigation, route }) => {
       
       <View style={styles.analysisFooter}>
         <View style={styles.dateSection}>
-          <Icon name="calendar-outline" size={14} color="#666" />
+          <Ionicons name="calendar-outline" size={14} color="#666" />
           <Text style={styles.analysisDate}>{formatDate(item.date)}</Text>
         </View>
         <View style={styles.resultsSection}>
           <Text style={styles.resultsSummary}>{getResultsSummary(item)}</Text>
-          <Icon name="chevron-forward" size={16} color="#999" />
+          <Ionicons name="chevron-forward" size={16} color="#999" />
         </View>
       </View>
     </TouchableOpacity>
@@ -230,7 +230,7 @@ const AnalysisScreen = ({ navigation, route }) => {
   // Render empty state
   const renderEmptyState = () => (
     <View style={styles.emptyContainer}>
-      <Icon name="flask-outline" size={80} color="#E0E0E0" />
+      <Ionicons name="flask-outline" size={80} color="#E0E0E0" />
       <Text style={styles.emptyTitle}>Chưa có kết quả phân tích</Text>
       <Text style={styles.emptyMessage}>
         {selectedPatient?.relationship === 'Bản thân' 
@@ -254,7 +254,7 @@ const AnalysisScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Kết quả phân tích</Text>
         </View>
@@ -276,7 +276,7 @@ const AnalysisScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Kết quả phân tích</Text>
       </View>
@@ -285,7 +285,7 @@ const AnalysisScreen = ({ navigation, route }) => {
       {selectedPatient && (
         <View style={styles.patientInfo}>
           <View style={styles.patientIconContainer}>
-            <Icon 
+            <Ionicons 
               name={selectedPatient.relationship === 'Bản thân' ? 'person' : 'people'} 
               size={20} 
               color="#4285F4" 

@@ -1,5 +1,5 @@
-// src/screens/SubServicesListScreen.js - Clean version không hiển thị thông tin người thân
-import React from 'react';
+// src/screens/SubServicesListScreen.js - Updated to use API
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,22 +8,55 @@ import {
   TextInput,
   ScrollView,
   StatusBar,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getServicesByCategory } from '../data/medicalServices';
+import { servicesService } from '../services/apiService';
 
 const SubServicesListScreen = ({ navigation, route }) => {
-  // Lấy ID và tên danh mục từ route params
-  const { categoryId, categoryName, appointmentData } = route.params;
-  
-  // Lấy danh sách dịch vụ thuộc danh mục này
-  const services = getServicesByCategory(categoryId);
+  // Lấy tên danh mục từ route params
+  const { categoryName, appointmentData } = route.params;
+
+  // State management
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Lấy danh sách dịch vụ từ API
+  useEffect(() => {
+    loadServicesByCategory();
+  }, [categoryName]);
+
+  const loadServicesByCategory = async () => {
+    try {
+      setLoading(true);
+      const response = await servicesService.getByCategory(categoryName);
+      console.log('Services by category response:', response);
+
+      if (response.success && response.data.services) {
+        setServices(response.data.services);
+      } else {
+        throw new Error('Không thể lấy danh sách dịch vụ');
+      }
+    } catch (error) {
+      console.error('Error loading services:', error);
+      Alert.alert('Lỗi', 'Không thể tải danh sách dịch vụ. Vui lòng thử lại.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Format currency
+  const formatCurrency = (amount) => {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
 
   // Xử lý khi chọn một dịch vụ
-  const handleServicePress = (serviceId) => {
-    navigation.navigate('ServiceDetail', { 
-      serviceId,
+  const handleServicePress = (service) => {
+    navigation.navigate('ServiceDetail', {
+      serviceId: service.id,
       appointmentData: appointmentData // Truyền thông tin đặt khám ngầm
     });
   };
@@ -38,7 +71,7 @@ const SubServicesListScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{categoryName}</Text>
       </View>
@@ -47,38 +80,59 @@ const SubServicesListScreen = ({ navigation, route }) => {
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <Icon name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
+        <Ionicons name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Tìm kiếm dịch vụ"
           placeholderTextColor="#A0A0A0"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
         />
       </View>
 
-      {/* Services List */}
-      <ScrollView style={styles.content}>
-        {services.map((service) => (
-          <TouchableOpacity 
-            key={service.id}
-            style={styles.serviceItem}
-            onPress={() => handleServicePress(service.id)}
-          >
-            <View style={styles.serviceIconContainer}>
-              <Icon name={service.icon || 'medical'} size={28} color="white" />
+      {/* Loading Indicator */}
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#4285F4" />
+          <Text style={styles.loadingText}>Đang tải dịch vụ...</Text>
+        </View>
+      ) : (
+        /* Services List */
+        <ScrollView style={styles.content}>
+          {services.length > 0 ? (
+            services.map((service) => (
+              <TouchableOpacity
+                key={service._id || service.id}
+                style={styles.serviceItem}
+                onPress={() => handleServicePress(service)}
+              >
+                <View style={styles.serviceIconContainer}>
+                  <Ionicons name="medical" size={28} color="white" />
+                </View>
+                <View style={styles.serviceInfo}>
+                  <Text style={styles.serviceName}>{service.name}</Text>
+                  <Text style={styles.serviceDescription} numberOfLines={2}>
+                    {service.description}
+                  </Text>
+                  <Text style={styles.servicePrice}>
+                    {formatCurrency(service.price)} {service.currency}
+                  </Text>
+                  <View style={styles.serviceDetails}>
+                    <Text style={styles.serviceDuration}>⏱ {service.duration}</Text>
+                    <Text style={styles.serviceAge}>👤 {service.ageRange}</Text>
+                  </View>
+                </View>
+                <Ionicons name="chevron-forward" size={20} color="#A0A0A0" />
+              </TouchableOpacity>
+            ))
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Ionicons name="search" size={60} color="#ccc" />
+              <Text style={styles.emptyText}>Không có dịch vụ nào trong danh mục này</Text>
             </View>
-            <View style={styles.serviceInfo}>
-              <Text style={styles.serviceName}>{service.name}</Text>
-              <Text style={styles.serviceDescription}>{service.shortDescription}</Text>
-              {service.price && (
-                <Text style={styles.servicePrice}>
-                  {service.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
-                </Text>
-              )}
-            </View>
-            <Icon name="chevron-forward" size={20} color="#A0A0A0" />
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+          )}
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };
@@ -163,7 +217,43 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#4285F4',
     marginTop: 5,
-  }
+  },
+  serviceDetails: {
+    flexDirection: 'row',
+    marginTop: 5,
+    gap: 15,
+  },
+  serviceDuration: {
+    fontSize: 12,
+    color: '#888',
+  },
+  serviceAge: {
+    fontSize: 12,
+    color: '#888',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 10,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#999',
+    marginTop: 15,
+    textAlign: 'center',
+  },
 });
 
 export default SubServicesListScreen;

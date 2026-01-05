@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
   Modal,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -242,7 +242,7 @@ const PersonalInfoScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Thông tin cá nhân</Text>
         </View>
@@ -266,13 +266,13 @@ const PersonalInfoScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Thông tin cá nhân</Text>
         </View>
         
         <View style={styles.emptyContainer}>
-          <Icon name="person-outline" size={80} color="#ddd" />
+          <Ionicons name="person-outline" size={80} color="#ddd" />
           <Text style={styles.emptyText}>Vui lòng đăng nhập để xem thông tin cá nhân</Text>
           <TouchableOpacity 
             style={styles.loginButton}
@@ -295,7 +295,7 @@ const PersonalInfoScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Thông tin cá nhân</Text>
         
@@ -304,7 +304,7 @@ const PersonalInfoScreen = ({ navigation, route }) => {
           onPress={refreshUserInfo}
           disabled={loading}
         >
-          <Icon name="refresh" size={20} color="#4285F4" />
+          <Ionicons name="refresh" size={20} color="#4285F4" />
         </TouchableOpacity>
         
         <TouchableOpacity 
@@ -328,7 +328,7 @@ const PersonalInfoScreen = ({ navigation, route }) => {
         {/* Thông tin cơ bản */}
         <View style={styles.infoSection}>
           <View style={styles.infoHeader}>
-            <Icon name="person" size={22} color="#4285F4" />
+            <Ionicons name="person" size={22} color="#4285F4" />
             <Text style={styles.infoHeaderText}>Thông tin cơ bản</Text>
           </View>
           
@@ -376,7 +376,7 @@ const PersonalInfoScreen = ({ navigation, route }) => {
         {/* Thông tin giấy tờ */}
         <View style={styles.infoSection}>
           <View style={styles.infoHeader}>
-            <Icon name="document-text" size={22} color="#4285F4" />
+            <Ionicons name="document-text" size={22} color="#4285F4" />
             <Text style={styles.infoHeaderText}>Thông tin giấy tờ</Text>
           </View>
           
@@ -416,7 +416,7 @@ const PersonalInfoScreen = ({ navigation, route }) => {
                 onPress={() => setEditModalVisible(false)}
                 disabled={loading}
               >
-                <Icon name="close" size={24} color="#000" />
+                <Ionicons name="close" size={24} color="#000" />
               </TouchableOpacity>
             </View>
             
@@ -465,7 +465,7 @@ const InfoItem = ({ label, value, editMode, onEdit, highlighted }) => (
       </Text>
       {editMode && (
         <TouchableOpacity style={styles.editButton} onPress={onEdit}>
-          <Icon name="create-outline" size={20} color="#4285F4" />
+          <Ionicons name="create-outline" size={20} color="#4285F4" />
         </TouchableOpacity>
       )}
     </View>

@@ -8,7 +8,7 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getServiceById } from '../data/medicalServices';
 
@@ -28,7 +28,7 @@ const GeneralCheckupDetailScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết dịch vụ</Text>
         </View>
@@ -74,7 +74,7 @@ const GeneralCheckupDetailScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{service.name}</Text>
       </View>
@@ -83,7 +83,7 @@ const GeneralCheckupDetailScreen = ({ navigation, route }) => {
         {/* Service Image */}
         <View style={styles.imageContainer}>
           <View style={styles.imagePlaceholder}>
-            <Icon name={getIconName(service.type)} size={80} color={getIconBackground(service.type)} />
+            <Ionicons name={getIconName(service.type)} size={80} color={getIconBackground(service.type)} />
           </View>
         </View>
         
@@ -92,7 +92,7 @@ const GeneralCheckupDetailScreen = ({ navigation, route }) => {
           <Text style={styles.serviceTitle}>{service.name}</Text>
           <View style={styles.ratingContainer}>
             {[...Array(5)].map((_, index) => (
-              <Icon 
+              <Ionicons 
                 key={index}
                 name="star" 
                 size={16} 

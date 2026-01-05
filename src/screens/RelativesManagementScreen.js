@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { relativesService } from '../services/apiService';
 
@@ -101,7 +101,7 @@ const RelativesManagementScreen = ({ navigation }) => {
       onLongPress={() => handleDeleteRelative(item._id)}
     >
       <View style={styles.relativeIconContainer}>
-        <Icon 
+        <Ionicons 
           name={
             item.relationship === 'Cha' || item.relationship === 'Bố' ? 'man' : 
             item.relationship === 'Mẹ' ? 'woman' : 
@@ -125,7 +125,7 @@ const RelativesManagementScreen = ({ navigation }) => {
         style={styles.editButton}
         onPress={() => handleEditRelative(item)}
       >
-        <Icon name="create-outline" size={22} color="#4285F4" />
+        <Ionicons name="create-outline" size={22} color="#4285F4" />
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -138,7 +138,7 @@ const RelativesManagementScreen = ({ navigation }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Quản lý người thân</Text>
         </View>
@@ -159,7 +159,7 @@ const RelativesManagementScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Quản lý người thân</Text>
       </View>
@@ -176,7 +176,7 @@ const RelativesManagementScreen = ({ navigation }) => {
         />
       ) : (
         <View style={styles.emptyContainer}>
-          <Icon name="people-outline" size={80} color="#ddd" />
+          <Ionicons name="people-outline" size={80} color="#ddd" />
           <Text style={styles.emptyText}>Bạn chưa có người thân nào</Text>
         </View>
       )}
@@ -186,7 +186,7 @@ const RelativesManagementScreen = ({ navigation }) => {
         style={styles.addButton}
         onPress={handleAddRelative}
       >
-        <Icon name="add" size={24} color="#fff" />
+        <Ionicons name="add" size={24} color="#fff" />
         <Text style={styles.addButtonText}>Thêm hồ sơ người thân</Text>
       </TouchableOpacity>
     </SafeAreaView>

@@ -11,7 +11,7 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -241,7 +241,7 @@ const MedicalExamScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Đặt lịch khám</Text>
       </View>
@@ -251,7 +251,7 @@ const MedicalExamScreen = ({ navigation, route }) => {
         {currentPatient && (
           <View style={styles.patientInfoContainer}>
             <View style={styles.patientInfoHeader}>
-              <Icon name="person" size={24} color="#4285F4" />
+              <Ionicons name="person" size={24} color="#4285F4" />
               <Text style={styles.patientInfoTitle}>Thông tin bệnh nhân</Text>
             </View>
             <View style={styles.patientInfoContent}>
@@ -285,7 +285,7 @@ const MedicalExamScreen = ({ navigation, route }) => {
                 service.selected ? styles.checkboxSelected : {}
               ]}>
                 {service.selected && (
-                  <Icon name="checkmark" size={18} color="#fff" />
+                  <Ionicons name="checkmark" size={18} color="#fff" />
                 )}
               </View>
               <Text style={styles.serviceText}>{service.name}</Text>

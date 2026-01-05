@@ -13,7 +13,7 @@ import {
   Alert,
   TextInput
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { relativesService } from '../services/apiService';
@@ -152,7 +152,7 @@ const RelativeCareScreen = ({ navigation }) => {
       onPress={() => handleChangeRelative(item)}
     >
       <View style={styles.userItemIcon}>
-        <Icon name="person" size={24} color="#4285F4" />
+        <Ionicons name="person" size={24} color="#4285F4" />
       </View>
       <View style={styles.userItemInfo}>
         <Text style={styles.userItemName}>{item.name}</Text>
@@ -167,7 +167,7 @@ const RelativeCareScreen = ({ navigation }) => {
         )}
       </View>
       {currentRelative && currentRelative._id === item._id && (
-        <Icon name="checkmark-circle" size={24} color="#4285F4" />
+        <Ionicons name="checkmark-circle" size={24} color="#4285F4" />
       )}
     </TouchableOpacity>
   );
@@ -183,7 +183,7 @@ const RelativeCareScreen = ({ navigation }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chăm sóc sức khỏe người thân</Text>
         </View>
@@ -205,7 +205,7 @@ const RelativeCareScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Chăm sóc sức khỏe người thân</Text>
       </View>
@@ -214,7 +214,7 @@ const RelativeCareScreen = ({ navigation }) => {
         {/* Không có người thân */}
         {relatives.length === 0 && !loading ? (
           <View style={styles.emptyContainer}>
-            <Icon name="people-outline" size={80} color="#ddd" />
+            <Ionicons name="people-outline" size={80} color="#ddd" />
             <Text style={styles.emptyText}>Bạn chưa có người thân nào</Text>
             <TouchableOpacity 
               style={styles.addButton}
@@ -222,7 +222,7 @@ const RelativeCareScreen = ({ navigation }) => {
                 screen: 'RelativeForm'
               })}
             >
-              <Icon name="add" size={20} color="#fff" />
+              <Ionicons name="add" size={20} color="#fff" />
               <Text style={styles.addButtonText}>Thêm người thân</Text>
             </TouchableOpacity>
           </View>
@@ -234,7 +234,7 @@ const RelativeCareScreen = ({ navigation }) => {
               onPress={() => setUserModalVisible(true)}
             >
               <View style={styles.selectedUserIcon}>
-                <Icon name="person" size={24} color="#4285F4" />
+                <Ionicons name="person" size={24} color="#4285F4" />
               </View>
               <View style={styles.selectedUserInfo}>
                 <Text style={styles.selectedUserName}>
@@ -255,7 +255,7 @@ const RelativeCareScreen = ({ navigation }) => {
                   </>
                 )}
               </View>
-              <Icon name="chevron-forward" size={24} color="#A0A0A0" />
+              <Ionicons name="chevron-forward" size={24} color="#A0A0A0" />
             </TouchableOpacity>
 
             {/* Services */}
@@ -272,7 +272,7 @@ const RelativeCareScreen = ({ navigation }) => {
                     service.selected ? styles.checkboxSelected : {}
                   ]}>
                     {service.selected && (
-                      <Icon name="checkmark" size={18} color="#fff" />
+                      <Ionicons name="checkmark" size={18} color="#fff" />
                     )}
                   </View>
                   <Text style={styles.serviceText}>{service.name}</Text>
@@ -323,7 +323,7 @@ const RelativeCareScreen = ({ navigation }) => {
                 style={styles.closeButton}
                 onPress={() => setUserModalVisible(false)}
               >
-                <Icon name="close" size={24} color="#000" />
+                <Ionicons name="close" size={24} color="#000" />
               </TouchableOpacity>
             </View>
             
@@ -349,7 +349,7 @@ const RelativeCareScreen = ({ navigation }) => {
                 });
               }}
             >
-              <Icon name="add-circle-outline" size={20} color="#fff" style={styles.addUserIcon} />
+              <Ionicons name="add-circle-outline" size={20} color="#fff" style={styles.addUserIcon} />
               <Text style={styles.addUserText}>Thêm người thân mới</Text>
             </TouchableOpacity>
           </View>

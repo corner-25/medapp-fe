@@ -12,7 +12,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { cartService, orderService } from '../services/apiService';
@@ -294,7 +294,7 @@ const CartScreen = ({ navigation }) => {
     return (
       <View style={styles.appointmentInfoContainer}>
         <View style={styles.appointmentInfoHeader}>
-          <Icon name="calendar" size={16} color="#4285F4" />
+          <Ionicons name="calendar" size={16} color="#4285F4" />
           <Text style={styles.appointmentInfoHeaderText}>Thông tin đặt khám</Text>
         </View>
         
@@ -357,7 +357,7 @@ const CartScreen = ({ navigation }) => {
     <View style={styles.cartItem}>
       <View style={styles.itemRow}>
         <View style={styles.itemIconContainer}>
-          <Icon name={getServiceIcon(item.service)} size={24} color="#4285F4" />
+          <Ionicons name={getServiceIcon(item.service)} size={24} color="#4285F4" />
         </View>
         <View style={styles.itemInfo}>
           <Text style={styles.itemName}>{item.name}</Text>
@@ -390,7 +390,7 @@ const CartScreen = ({ navigation }) => {
             onPress={() => handleRemoveItem(item.service)}
             disabled={updating}
           >
-            <Icon name="trash-outline" size={20} color="#888" />
+            <Ionicons name="trash-outline" size={20} color="#888" />
           </TouchableOpacity>
         </View>
       </View>
@@ -402,7 +402,7 @@ const CartScreen = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Giỏ hàng</Text>
         </View>
@@ -420,14 +420,14 @@ const CartScreen = ({ navigation }) => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Giỏ hàng</Text>
       </View>
 
       {!cart || !cart.items || cart.items.length === 0 ? (
         <View style={styles.emptyCartContainer}>
-          <Icon name="cart-outline" size={80} color="#ddd" />
+          <Ionicons name="cart-outline" size={80} color="#ddd" />
           <Text style={styles.emptyCartText}>Giỏ hàng trống</Text>
           <TouchableOpacity 
             style={styles.continueShopping}
@@ -476,7 +476,7 @@ const CartScreen = ({ navigation }) => {
                 onPress={() => setPaymentModalVisible(true)}
               >
                 <View style={styles.paymentMethodLogoContainer}>
-                  <Icon name={selectedPayment.icon} size={30} color="#1A237E" />
+                  <Ionicons name={selectedPayment.icon} size={30} color="#1A237E" />
                   <Text style={styles.paymentMethodText}>{selectedPayment.name}</Text>
                 </View>
                 <Text style={styles.changeMethodText}>Thay đổi</Text>
@@ -523,7 +523,7 @@ const CartScreen = ({ navigation }) => {
                 style={styles.closeButton}
                 onPress={() => setPaymentModalVisible(false)}
               >
-                <Icon name="close" size={24} color="#000" />
+                <Ionicons name="close" size={24} color="#000" />
               </TouchableOpacity>
             </View>
             
@@ -538,10 +538,10 @@ const CartScreen = ({ navigation }) => {
                   ]}
                   onPress={() => handleSelectPaymentMethod(item)}
                 >
-                  <Icon name={item.icon} size={24} color="#4285F4" />
+                  <Ionicons name={item.icon} size={24} color="#4285F4" />
                   <Text style={styles.paymentOptionText}>{item.name}</Text>
                   {selectedPayment.id === item.id && (
-                    <Icon name="checkmark-circle" size={24} color="#4285F4" />
+                    <Ionicons name="checkmark-circle" size={24} color="#4285F4" />
                   )}
                 </TouchableOpacity>
               )}

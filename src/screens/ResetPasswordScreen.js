@@ -13,7 +13,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { API_BASE_URL } from '../config/settings';
@@ -218,7 +218,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
         <StatusBar barStyle="dark-content" />
         <View style={styles.errorContainer}>
           <View style={styles.errorIconCircle}>
-            <Icon name="close" size={40} color="#E53935" />
+            <Ionicons name="close" size={40} color="#E53935" />
           </View>
           <Text style={styles.errorTitle}>Link không hợp lệ</Text>
           <Text style={styles.errorDescription}>
@@ -245,7 +245,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Đặt lại mật khẩu</Text>
       </View>
@@ -258,7 +258,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
           {/* Icon */}
           <View style={styles.iconContainer}>
             <View style={styles.iconCircle}>
-              <Icon name="key-outline" size={40} color="#4285F4" />
+              <Ionicons name="key-outline" size={40} color="#4285F4" />
             </View>
           </View>
 
@@ -270,7 +270,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
 
           {/* New Password Input */}
           <View style={styles.inputContainer}>
-            <Icon name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Mật khẩu mới"
@@ -283,13 +283,13 @@ const ResetPasswordScreen = ({ navigation, route }) => {
               style={styles.passwordToggle}
               onPress={() => setShowPassword(!showPassword)}
             >
-              <Icon name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
+              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
             </TouchableOpacity>
           </View>
 
           {/* Confirm Password Input */}
           <View style={styles.inputContainer}>
-            <Icon name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Xác nhận mật khẩu mới"
@@ -302,7 +302,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
               style={styles.passwordToggle}
               onPress={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              <Icon name={showConfirmPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
+              <Ionicons name={showConfirmPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
             </TouchableOpacity>
           </View>
 
@@ -310,7 +310,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
           <View style={styles.requirementsContainer}>
             <Text style={styles.requirementsTitle}>Yêu cầu mật khẩu:</Text>
             <View style={styles.requirementRow}>
-              <Icon 
+              <Ionicons 
                 name={password.length >= 6 ? "checkmark-circle" : "ellipse-outline"} 
                 size={16} 
                 color={password.length >= 6 ? "#4CAF50" : "#ccc"} 
@@ -320,7 +320,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
               </Text>
             </View>
             <View style={styles.requirementRow}>
-              <Icon 
+              <Ionicons 
                 name={/(?=.*[a-z])/.test(password) ? "checkmark-circle" : "ellipse-outline"} 
                 size={16} 
                 color={/(?=.*[a-z])/.test(password) ? "#4CAF50" : "#ccc"} 
@@ -330,7 +330,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
               </Text>
             </View>
             <View style={styles.requirementRow}>
-              <Icon 
+              <Ionicons 
                 name={/(?=.*[A-Z])/.test(password) ? "checkmark-circle" : "ellipse-outline"} 
                 size={16} 
                 color={/(?=.*[A-Z])/.test(password) ? "#4CAF50" : "#ccc"} 
@@ -340,7 +340,7 @@ const ResetPasswordScreen = ({ navigation, route }) => {
               </Text>
             </View>
             <View style={styles.requirementRow}>
-              <Icon 
+              <Ionicons 
                 name={/(?=.*\d)/.test(password) ? "checkmark-circle" : "ellipse-outline"} 
                 size={16} 
                 color={/(?=.*\d)/.test(password) ? "#4CAF50" : "#ccc"} 

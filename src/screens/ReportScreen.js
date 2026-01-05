@@ -15,10 +15,10 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
-import { relativesService, allergiesService, vaccinesService, analysesService, medicalRecordsService } from '../services/apiService';
+import { relativesService, allergiesService, vaccinesService, analysesService, medicalRecordsService, appointmentsService } from '../services/apiService';
 
 const { width } = Dimensions.get('window');
 const cardSize = (width - 50) / 2; // Kích thước cho mỗi thẻ (2 thẻ trên một hàng)
@@ -41,6 +41,7 @@ const ReportScreen = ({ navigation }) => {
     vaccines: 0,
     analyses: 0,
     medicalRecords: 0,
+    appointments: 0,
   });
 
   // Load data when screen mounts
@@ -117,23 +118,30 @@ const ReportScreen = ({ navigation }) => {
           vaccines: 0,
           analyses: 0,
           medicalRecords: 0,
+          appointments: 0,
         });
         return;
       }
 
       // Load data counts from APIs
-      const [allergiesData, vaccinesData, analysesData, medicalRecordsData] = await Promise.allSettled([
+      const [allergiesData, vaccinesData, analysesData, medicalRecordsData, appointmentsData] = await Promise.allSettled([
         allergiesService.getByRelativeId(patientId),
         vaccinesService.getByRelativeId(patientId),
         analysesService.getByRelativeId(patientId),
         medicalRecordsService.getByRelativeId(patientId),
+        appointmentsService.getAll(),
       ]);
+
+      // Filter appointments for current patient
+      const allAppointments = appointmentsData.status === 'fulfilled' ? appointmentsData.value || [] : [];
+      const patientAppointments = allAppointments.filter(apt => apt.patient === patientId);
 
       setReportCounts({
         allergies: allergiesData.status === 'fulfilled' ? allergiesData.value?.length || 0 : 0,
         vaccines: vaccinesData.status === 'fulfilled' ? vaccinesData.value?.length || 0 : 0,
         analyses: analysesData.status === 'fulfilled' ? analysesData.value?.length || 0 : 0,
         medicalRecords: medicalRecordsData.status === 'fulfilled' ? medicalRecordsData.value?.length || 0 : 0,
+        appointments: patientAppointments.length,
       });
 
       console.log('📊 Report counts loaded:', {
@@ -141,6 +149,7 @@ const ReportScreen = ({ navigation }) => {
         vaccines: vaccinesData.status === 'fulfilled' ? vaccinesData.value?.length || 0 : 0,
         analyses: analysesData.status === 'fulfilled' ? analysesData.value?.length || 0 : 0,
         medicalRecords: medicalRecordsData.status === 'fulfilled' ? medicalRecordsData.value?.length || 0 : 0,
+        appointments: patientAppointments.length,
       });
 
     } catch (error) {
@@ -151,6 +160,7 @@ const ReportScreen = ({ navigation }) => {
         vaccines: 0,
         analyses: 0,
         medicalRecords: 0,
+        appointments: 0,
       });
     }
   };
@@ -205,9 +215,15 @@ const ReportScreen = ({ navigation }) => {
         });
         break;
       case 'records':
-        navigation.navigate('MedicalRecordsScreen', { 
+        navigation.navigate('MedicalRecordsScreen', {
           selectedPatient: selectedPatient,
-          fromReport: true 
+          fromReport: true
+        });
+        break;
+      case 'appointments':
+        navigation.navigate('AppointmentsScreen', {
+          selectedPatient: selectedPatient,
+          fromReport: true
         });
         break;
       default:
@@ -234,7 +250,7 @@ const ReportScreen = ({ navigation }) => {
       onPress={() => handlePatientSelect(item)}
     >
       <View style={styles.patientIconContainer}>
-        <Icon 
+        <Ionicons 
           name={item.isCurrentUser ? 'person' : 'people'} 
           size={20} 
           color="#4285F4" 
@@ -247,7 +263,7 @@ const ReportScreen = ({ navigation }) => {
         </Text>
       </View>
       {selectedPatient?._id === item._id && (
-        <Icon name="checkmark-circle" size={20} color="#4285F4" />
+        <Ionicons name="checkmark-circle" size={20} color="#4285F4" />
       )}
     </TouchableOpacity>
   );
@@ -259,7 +275,7 @@ const ReportScreen = ({ navigation }) => {
       onPress={() => handleCardPress(type)}
     >
       <View style={[styles.cardIconContainer, { backgroundColor: color }]}>
-        <Icon name={icon} size={24} color="white" />
+        <Ionicons name={icon} size={24} color="white" />
       </View>
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={styles.cardSubtitle}>{subtitle}</Text>
@@ -305,7 +321,7 @@ const ReportScreen = ({ navigation }) => {
         
         {/* Search Bar */}
         <View style={styles.searchContainer}>
-          <Icon name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
+          <Ionicons name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
             placeholder="Tìm kiếm báo cáo, xét nghiệm..."
@@ -323,7 +339,7 @@ const ReportScreen = ({ navigation }) => {
           >
             <View style={styles.selectedPatientContainer}>
               <View style={styles.selectedPatientIcon}>
-                <Icon 
+                <Ionicons 
                   name={selectedPatient.isCurrentUser ? 'person' : 'people'} 
                   size={20} 
                   color="#4285F4" 
@@ -333,12 +349,12 @@ const ReportScreen = ({ navigation }) => {
                 <Text style={styles.selectedPatientName}>{selectedPatient.name}</Text>
                 <Text style={styles.selectedPatientRelation}>{selectedPatient.relationship}</Text>
               </View>
-              <Icon name="chevron-down" size={20} color="#666" />
+              <Ionicons name="chevron-down" size={20} color="#666" />
             </View>
           </TouchableOpacity>
         ) : (
           <View style={styles.loginPromptContainer}>
-            <Icon name="lock-closed-outline" size={60} color="#ddd" />
+            <Ionicons name="lock-closed-outline" size={60} color="#ddd" />
             <Text style={styles.loginPromptText}>Vui lòng đăng nhập để xem báo cáo y tế</Text>
             <TouchableOpacity 
               style={styles.loginButton}
@@ -354,13 +370,13 @@ const ReportScreen = ({ navigation }) => {
           <View style={styles.infoContainer}>
             <View style={styles.infoRow}>
               <View style={styles.infoCard}>
-                <Icon name="person-outline" size={20} color="#4285F4" />
+                <Ionicons name="person-outline" size={20} color="#4285F4" />
                 <Text style={styles.infoLabel}>Giới tính</Text>
                 <Text style={styles.infoValue}>{selectedPatient.gender || 'Chưa cập nhật'}</Text>
               </View>
               
               <View style={styles.infoCard}>
-                <Icon name="water-outline" size={20} color="#E53935" />
+                <Ionicons name="water-outline" size={20} color="#E53935" />
                 <Text style={styles.infoLabel}>Nhóm máu</Text>
                 <Text style={styles.infoValue}>{selectedPatient.bloodType || 'Chưa xác định'}</Text>
               </View>
@@ -368,13 +384,13 @@ const ReportScreen = ({ navigation }) => {
             
             <View style={styles.infoRow}>
               <View style={styles.infoCard}>
-                <Icon name="calendar-outline" size={20} color="#FF9800" />
+                <Ionicons name="calendar-outline" size={20} color="#FF9800" />
                 <Text style={styles.infoLabel}>Tuổi</Text>
                 <Text style={styles.infoValue}>{selectedPatient.age} tuổi</Text>
               </View>
               
               <View style={styles.infoCard}>
-                <Icon name="fitness-outline" size={20} color="#4CAF50" />
+                <Ionicons name="fitness-outline" size={20} color="#4CAF50" />
                 <Text style={styles.infoLabel}>Cân nặng</Text>
                 <Text style={styles.infoValue}>{selectedPatient.weight || 'Chưa cập nhật'}</Text>
               </View>
@@ -416,7 +432,7 @@ const ReportScreen = ({ navigation }) => {
               '#4CAF50',
               reportCounts.vaccines
             )}
-            
+
             {/* Hồ sơ bệnh án */}
             {renderReportCard(
               'records',
@@ -426,6 +442,27 @@ const ReportScreen = ({ navigation }) => {
               '#9C27B0',
               reportCounts.medicalRecords
             )}
+          </View>
+
+          <View style={styles.cardsRow}>
+            {/* Lịch hẹn tái khám */}
+            {renderReportCard(
+              'appointments',
+              'calendar-outline',
+              'Lịch hẹn',
+              'Tái khám & đặt lịch',
+              '#2196F3',
+              reportCounts.appointments
+            )}
+
+            {/* Placeholder card hoặc có thể thêm tính năng khác */}
+            <View style={[styles.card, { backgroundColor: '#f5f5f5', opacity: 0.5 }]}>
+              <View style={[styles.cardIconContainer, { backgroundColor: '#ccc' }]}>
+                <Ionicons name="add-outline" size={24} color="white" />
+              </View>
+              <Text style={[styles.cardTitle, { color: '#999' }]}>Sắp có</Text>
+              <Text style={[styles.cardSubtitle, { color: '#999' }]}>Tính năng mới</Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -445,7 +482,7 @@ const ReportScreen = ({ navigation }) => {
                 style={styles.closeButton}
                 onPress={() => setPatientModalVisible(false)}
               >
-                <Icon name="close" size={24} color="#666" />
+                <Ionicons name="close" size={24} color="#666" />
               </TouchableOpacity>
             </View>
 

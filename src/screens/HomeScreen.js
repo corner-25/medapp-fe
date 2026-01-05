@@ -9,7 +9,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { getHospitals } from '../data/hospitals';
@@ -84,7 +84,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.mainContent}>
         {/* Search Bar */}
         <View style={styles.searchContainer}>
-          <Icon name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
+          <Ionicons name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
             placeholder="Tìm kiếm dịch vụ, bác sĩ, bài báo..."
@@ -99,7 +99,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('RelativeCare')}
           >
             <View style={[styles.serviceIcon, { backgroundColor: '#4285F4' }]}>
-              <Icon name="people" size={28} color="white" />
+              <Ionicons name="people" size={28} color="white" />
             </View>
             <Text style={styles.serviceText}>Chăm sóc sức khoẻ người thân</Text>
           </TouchableOpacity>
@@ -109,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('MedicalExam')}
           >
             <View style={[styles.serviceIcon, { backgroundColor: '#4285F4' }]}>
-              <Icon name="fitness" size={28} color="white" />
+              <Ionicons name="fitness" size={28} color="white" />
             </View>
             <Text style={styles.serviceText}>Đặt khám bệnh</Text>
           </TouchableOpacity>
@@ -119,7 +119,7 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Emergency')}
           >
             <View style={[styles.serviceIcon, { backgroundColor: '#E53935' }]}>
-              <Icon name="medkit" size={28} color="white" />
+              <Ionicons name="medkit" size={28} color="white" />
             </View>
             <Text style={styles.serviceText}>Cấp cứu</Text>
           </TouchableOpacity>
@@ -151,13 +151,13 @@ const HomeScreen = ({ navigation }) => {
               <View style={styles.hospitalInfo}>
                 <Text style={styles.hospitalName}>{hospital.name}</Text>
                 <View style={styles.hospitalLocationRow}>
-                  <Icon name="location" size={12} color="#888" />
+                  <Ionicons name="location" size={12} color="#888" />
                   <Text style={styles.hospitalAddress}>{hospital.address}</Text>
                 </View>
                 <View style={styles.hospitalRatingRow}>
                   <View style={styles.hospitalRatingStars}>
                     {[...Array(5)].map((_, index) => (
-                      <Icon 
+                      <Ionicons 
                         key={index}
                         name={index < Math.floor(hospital.rating) ? "star" : "star-outline"} 
                         size={12} 
@@ -168,7 +168,7 @@ const HomeScreen = ({ navigation }) => {
                   <Text style={styles.hospitalRatingText}>{hospital.rating}</Text>
                 </View>
               </View>
-              <Icon name="chevron-forward" size={16} color="#ccc" />
+              <Ionicons name="chevron-forward" size={16} color="#ccc" />
             </TouchableOpacity>
           ))}
         </ScrollView>

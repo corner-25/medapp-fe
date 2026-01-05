@@ -13,7 +13,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { API_BASE_URL } from '../config/settings';
 
@@ -104,7 +104,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Quên mật khẩu</Text>
       </View>
@@ -117,7 +117,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
           {/* Icon */}
           <View style={styles.iconContainer}>
             <View style={styles.iconCircle}>
-              <Icon name="lock-closed-outline" size={40} color="#4285F4" />
+              <Ionicons name="lock-closed-outline" size={40} color="#4285F4" />
             </View>
           </View>
 
@@ -131,7 +131,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
               {/* Email Input */}
               <View style={styles.inputContainer}>
-                <Icon name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
+                <Ionicons name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Nhập địa chỉ email"
@@ -161,7 +161,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
               {/* Success State */}
               <View style={styles.successIconContainer}>
                 <View style={styles.successIconCircle}>
-                  <Icon name="checkmark" size={40} color="#4CAF50" />
+                  <Ionicons name="checkmark" size={40} color="#4CAF50" />
                 </View>
               </View>
 

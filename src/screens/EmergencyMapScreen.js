@@ -10,7 +10,7 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { emergencyService } from '../services/apiService';
@@ -140,7 +140,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Xác nhận đơn cấp cứu</Text>
         </View>
@@ -167,7 +167,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Xác nhận đơn cấp cứu</Text>
         </View>
@@ -199,7 +199,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Xác nhận đơn cấp cứu</Text>
       </View>
@@ -208,7 +208,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
         {/* Thông tin bệnh nhân */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Icon name="person" size={20} color="#E53935" />
+            <Ionicons name="person" size={20} color="#E53935" />
             <Text style={styles.sectionTitle}>Thông tin bệnh nhân</Text>
             <TouchableOpacity onPress={handleEditInfo}>
               <Text style={styles.editText}>Chỉnh sửa</Text>
@@ -250,7 +250,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
         {/* Địa chỉ */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Icon name="location" size={20} color="#E53935" />
+            <Ionicons name="location" size={20} color="#E53935" />
             <Text style={styles.sectionTitle}>Địa chỉ cấp cứu</Text>
           </View>
           
@@ -262,12 +262,12 @@ const EmergencyMapScreen = ({ navigation, route }) => {
                 style={styles.confirmAddressButton}
                 onPress={handleConfirmAddress}
               >
-                <Icon name="checkmark-circle-outline" size={20} color="#4285F4" />
+                <Ionicons name="checkmark-circle-outline" size={20} color="#4285F4" />
                 <Text style={styles.confirmAddressText}>Xác nhận địa chỉ</Text>
               </TouchableOpacity>
             ) : (
               <View style={styles.confirmedAddress}>
-                <Icon name="checkmark-circle" size={20} color="#4CAF50" />
+                <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
                 <Text style={styles.confirmedAddressText}>Địa chỉ đã xác nhận</Text>
               </View>
             )}
@@ -277,7 +277,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
         {/* Triệu chứng */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Icon name="medical" size={20} color="#E53935" />
+            <Ionicons name="medical" size={20} color="#E53935" />
             <Text style={styles.sectionTitle}>Triệu chứng</Text>
           </View>
           
@@ -289,7 +289,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
         {/* Dịch vụ đã chọn */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Icon name="list" size={20} color="#E53935" />
+            <Ionicons name="list" size={20} color="#E53935" />
             <Text style={styles.sectionTitle}>Dịch vụ bổ sung</Text>
           </View>
           
@@ -313,7 +313,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
         {/* Chi phí */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeader}>
-            <Icon name="cash" size={20} color="#E53935" />
+            <Ionicons name="cash" size={20} color="#E53935" />
             <Text style={styles.sectionTitle}>Chi phí</Text>
           </View>
           
@@ -339,7 +339,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
 
         {/* Lưu ý */}
         <View style={styles.noteContainer}>
-          <Icon name="information-circle-outline" size={20} color="#FF9800" />
+          <Ionicons name="information-circle-outline" size={20} color="#FF9800" />
           <Text style={styles.noteText}>
             Thời gian ước tính xe cấp cứu đến: 10-15 phút. 
             Vui lòng giữ máy để nhận cuộc gọi từ tài xế.
@@ -361,7 +361,7 @@ const EmergencyMapScreen = ({ navigation, route }) => {
             <ActivityIndicator color="#fff" size="small" />
           ) : (
             <>
-              <Icon name="call" size={20} color="#fff" style={styles.emergencyButtonIcon} />
+              <Ionicons name="call" size={20} color="#fff" style={styles.emergencyButtonIcon} />
               <Text style={styles.emergencyButtonText}>Gọi xe cấp cứu ngay</Text>
             </>
           )}

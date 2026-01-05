@@ -10,7 +10,7 @@ import {
   Alert,
   Platform
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const PrivacySettingsScreen = ({ navigation }) => {
@@ -117,7 +117,7 @@ const PrivacySettingsScreen = ({ navigation }) => {
   const renderPermissionItem = (permission) => (
     <View key={permission.id} style={styles.permissionItem}>
       <View style={styles.permissionIconContainer}>
-        <Icon name={permission.icon} size={24} color="#4285F4" />
+        <Ionicons name={permission.icon} size={24} color="#4285F4" />
       </View>
       
       <View style={styles.permissionInfo}>
@@ -145,14 +145,14 @@ const PrivacySettingsScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Quyền riêng tư và Bảo mật</Text>
       </View>
       
       {/* Thông tin giới thiệu */}
       <View style={styles.infoBox}>
-        <Icon name="shield-checkmark-outline" size={24} color="#4285F4" style={styles.infoIcon} />
+        <Ionicons name="shield-checkmark-outline" size={24} color="#4285F4" style={styles.infoIcon} />
         <Text style={styles.infoText}>
           Quản lý quyền truy cập của ứng dụng để bảo vệ dữ liệu cá nhân và tối ưu hóa trải nghiệm của bạn
         </Text>
@@ -169,7 +169,7 @@ const PrivacySettingsScreen = ({ navigation }) => {
             style={styles.privacyPolicyButton}
             onPress={() => navigation.navigate('PrivacyPolicy')}
           >
-            <Icon name="document-text-outline" size={20} color="#4285F4" style={styles.policyIcon} />
+            <Ionicons name="document-text-outline" size={20} color="#4285F4" style={styles.policyIcon} />
             <Text style={styles.policyText}>Xem chính sách quyền riêng tư</Text>
           </TouchableOpacity>
         </View>
@@ -195,7 +195,7 @@ const PrivacySettingsScreen = ({ navigation }) => {
               );
             }}
           >
-            <Icon name="trash-outline" size={20} color="#E53935" style={styles.deleteIcon} />
+            <Ionicons name="trash-outline" size={20} color="#E53935" style={styles.deleteIcon} />
             <Text style={styles.deleteText}>Xóa tài khoản</Text>
           </TouchableOpacity>
         </View>

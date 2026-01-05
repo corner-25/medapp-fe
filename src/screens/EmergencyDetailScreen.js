@@ -12,7 +12,7 @@ import {
   RefreshControl,
   Linking,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { emergencyService } from '../services/apiService';
@@ -163,7 +163,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết cấp cứu</Text>
         </View>
@@ -184,12 +184,12 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết cấp cứu</Text>
         </View>
         <View style={styles.errorContainer}>
-          <Icon name="alert-circle-outline" size={60} color="#ddd" />
+          <Ionicons name="alert-circle-outline" size={60} color="#ddd" />
           <Text style={styles.errorText}>Không tìm thấy thông tin cấp cứu</Text>
         </View>
       </SafeAreaView>
@@ -206,7 +206,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Chi tiết cấp cứu</Text>
         <TouchableOpacity 
@@ -214,7 +214,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
           onPress={handleRefresh}
           disabled={refreshing}
         >
-          <Icon name="refresh" size={20} color="#4285F4" />
+          <Ionicons name="refresh" size={20} color="#4285F4" />
         </TouchableOpacity>
       </View>
 
@@ -231,7 +231,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {/* Trạng thái */}
         <View style={[styles.statusCard, { borderLeftColor: getStatusColor(emergency.status) }]}>
           <View style={styles.statusHeader}>
-            <Icon 
+            <Ionicons 
               name={getStatusIcon(emergency.status)} 
               size={24} 
               color={getStatusColor(emergency.status)} 
@@ -248,7 +248,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
           
           {emergency.estimatedArrivalTime && emergency.status === 'dispatched' && (
             <View style={styles.estimatedTime}>
-              <Icon name="time" size={16} color="#4CAF50" />
+              <Ionicons name="time" size={16} color="#4CAF50" />
               <Text style={styles.estimatedTimeText}>
                 Dự kiến đến: {formatDateTime(emergency.estimatedArrivalTime)}
               </Text>
@@ -259,7 +259,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {/* Thông tin bệnh nhân */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="person" size={20} color="#4285F4" />
+            <Ionicons name="person" size={20} color="#4285F4" />
             <Text style={styles.sectionTitle}>Thông tin bệnh nhân</Text>
           </View>
           
@@ -302,7 +302,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {/* Địa chỉ cấp cứu */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="location" size={20} color="#E53935" />
+            <Ionicons name="location" size={20} color="#E53935" />
             <Text style={styles.sectionTitle}>Địa chỉ cấp cứu</Text>
           </View>
           
@@ -310,7 +310,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
             <Text style={styles.addressText}>{emergency.location.address}</Text>
             {emergency.location.hasGPS && (
               <View style={styles.gpsInfo}>
-                <Icon name="navigate" size={14} color="#4CAF50" />
+                <Ionicons name="navigate" size={14} color="#4CAF50" />
                 <Text style={styles.gpsText}>Có định vị GPS</Text>
               </View>
             )}
@@ -320,7 +320,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {/* Triệu chứng */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="medical" size={20} color="#FF9800" />
+            <Ionicons name="medical" size={20} color="#FF9800" />
             <Text style={styles.sectionTitle}>Triệu chứng</Text>
           </View>
           
@@ -331,7 +331,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {emergency.selectedServices && emergency.selectedServices.length > 0 && (
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeader}>
-              <Icon name="list" size={20} color="#4285F4" />
+              <Ionicons name="list" size={20} color="#4285F4" />
               <Text style={styles.sectionTitle}>Dịch vụ bổ sung</Text>
             </View>
             
@@ -352,7 +352,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {/* Chi phí */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="cash" size={20} color="#4CAF50" />
+            <Ionicons name="cash" size={20} color="#4CAF50" />
             <Text style={styles.sectionTitle}>Chi phí</Text>
           </View>
           
@@ -386,7 +386,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {emergency.emergencyTeam && (
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeader}>
-              <Icon name="people" size={20} color="#4285F4" />
+              <Ionicons name="people" size={20} color="#4285F4" />
               <Text style={styles.sectionTitle}>Đội cấp cứu</Text>
             </View>
             
@@ -398,7 +398,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {emergency.medicalNotes && (
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeader}>
-              <Icon name="document-text" size={20} color="#FF9800" />
+              <Ionicons name="document-text" size={20} color="#FF9800" />
               <Text style={styles.sectionTitle}>Ghi chú y tế</Text>
             </View>
             
@@ -409,7 +409,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
         {/* Thời gian */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="time" size={20} color="#666" />
+            <Ionicons name="time" size={20} color="#666" />
             <Text style={styles.sectionTitle}>Thời gian</Text>
           </View>
           
@@ -442,7 +442,7 @@ const EmergencyDetailScreen = ({ navigation, route }) => {
             style={styles.callButton}
             onPress={() => handleCall(emergency.patientInfo.phone)}
           >
-            <Icon name="call" size={20} color="#fff" />
+            <Ionicons name="call" size={20} color="#fff" />
             <Text style={styles.callButtonText}>Gọi khẩn cấp</Text>
           </TouchableOpacity>
         </View>

@@ -11,13 +11,13 @@ import {
   RefreshControl,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { medicalRecordsService } from '../services/apiService';
 
 const MedicalRecordsScreen = ({ navigation, route }) => {
-  const { getToken, getUserInfo } = useContext(AuthContext);
+  const { getToken } = useContext(AuthContext);
   
   // Get patient info from ReportScreen or route params
   const selectedPatient = route.params?.selectedPatient;
@@ -54,20 +54,52 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
       }
 
       // Load medical records from API for relatives
+      const token = await getToken();
+      if (!token) {
+        Alert.alert('Lỗi xác thực', 'Vui lòng đăng nhập lại');
+        navigation.navigate('LoginScreen');
+        return;
+      }
+
       const recordsData = await medicalRecordsService.getByRelativeId(selectedPatient._id);
       console.log('🏥 Loaded medical records from API:', recordsData);
-      setMedicalRecords(recordsData || []);
+
+      // Ensure data is array and sort by date (newest first)
+      const sortedRecords = Array.isArray(recordsData) ?
+        recordsData.sort((a, b) => new Date(b.date) - new Date(a.date)) : [];
+
+      setMedicalRecords(sortedRecords);
 
     } catch (error) {
       console.error('❌ Error loading medical records:', error);
-      
-      if (error.message?.includes('404')) {
+
+      if (error.message?.includes('404') || error.message?.includes('Không tìm thấy')) {
         // No records found - this is normal
         setMedicalRecords([]);
-      } else if (error.message?.includes('Network')) {
-        Alert.alert('Lỗi kết nối', 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet.');
+      } else if (error.message?.includes('Network') || error.message?.includes('Failed to fetch')) {
+        Alert.alert(
+          'Lỗi kết nối',
+          'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet và thử lại.',
+          [
+            { text: 'Thử lại', onPress: () => loadMedicalRecordsData() },
+            { text: 'Đóng', style: 'cancel' }
+          ]
+        );
+      } else if (error.message?.includes('401') || error.message?.includes('403')) {
+        Alert.alert(
+          'Lỗi xác thực',
+          'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
+          [{ text: 'Đăng nhập', onPress: () => navigation.navigate('LoginScreen') }]
+        );
       } else {
-        Alert.alert('Lỗi', 'Không thể tải hồ sơ bệnh án. Vui lòng thử lại sau.');
+        Alert.alert(
+          'Lỗi',
+          'Không thể tải hồ sơ bệnh án. Vui lòng thử lại sau.',
+          [
+            { text: 'Thử lại', onPress: () => loadMedicalRecordsData() },
+            { text: 'Đóng', style: 'cancel' }
+          ]
+        );
       }
     } finally {
       setLoading(false);
@@ -158,7 +190,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
       <View style={styles.recordHeader}>
         <View style={styles.hospitalSection}>
           <View style={styles.hospitalIcon}>
-            <Icon name="medical-outline" size={20} color="#4285F4" />
+            <Ionicons name="medical-outline" size={20} color="#4285F4" />
           </View>
           <View style={styles.recordInfo}>
             <Text style={styles.hospitalName}>
@@ -192,7 +224,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
       {/* Next Appointment */}
       {item.nextAppointment && item.nextAppointment.isScheduled && (
         <View style={styles.nextAppointmentSection}>
-          <Icon name="calendar-outline" size={16} color="#FF9800" />
+          <Ionicons name="calendar-outline" size={16} color="#FF9800" />
           <Text style={styles.nextAppointmentText}>
             Tái khám: {formatShortDate(item.nextAppointment.date)}
           </Text>
@@ -201,7 +233,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
 
       <View style={styles.recordFooter}>
         <Text style={styles.viewDetailsText}>Nhấn để xem chi tiết</Text>
-        <Icon name="chevron-forward" size={16} color="#999" />
+        <Ionicons name="chevron-forward" size={16} color="#999" />
       </View>
     </TouchableOpacity>
   );
@@ -209,7 +241,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
   // Render empty state
   const renderEmptyState = () => (
     <View style={styles.emptyContainer}>
-      <Icon name="document-text-outline" size={80} color="#E0E0E0" />
+      <Ionicons name="document-text-outline" size={80} color="#E0E0E0" />
       <Text style={styles.emptyTitle}>Chưa có hồ sơ bệnh án</Text>
       <Text style={styles.emptyMessage}>
         {selectedPatient?.relationship === 'Bản thân' 
@@ -226,7 +258,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
         style={styles.emptyActionButton}
         onPress={handleBookAppointment}
       >
-        <Icon name="add-circle-outline" size={20} color="#4285F4" />
+        <Ionicons name="add-circle-outline" size={20} color="#4285F4" />
         <Text style={styles.emptyActionText}>Đặt lịch khám ngay</Text>
       </TouchableOpacity>
     </View>
@@ -242,7 +274,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Hồ sơ bệnh án</Text>
         </View>
@@ -264,7 +296,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Hồ sơ bệnh án</Text>
       </View>
@@ -273,7 +305,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
       {selectedPatient && (
         <View style={styles.patientInfo}>
           <View style={styles.patientIconContainer}>
-            <Icon 
+            <Ionicons 
               name={selectedPatient.relationship === 'Bản thân' ? 'person' : 'people'} 
               size={20} 
               color="#4285F4" 
@@ -317,7 +349,7 @@ const MedicalRecordsScreen = ({ navigation, route }) => {
                 style={styles.bookAppointmentButton}
                 onPress={handleBookAppointment}
               >
-                <Icon name="calendar-outline" size={20} color="white" />
+                <Ionicons name="calendar-outline" size={20} color="white" />
                 <Text style={styles.bookAppointmentText}>Đặt lịch tái khám</Text>
               </TouchableOpacity>
             </View>

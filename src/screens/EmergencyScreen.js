@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { relativesService } from '../services/apiService';
@@ -243,7 +243,7 @@ const EmergencyScreen = ({ navigation }) => {
       onPress={() => handleChangeUser(item)}
     >
       <View style={styles.userItemIcon}>
-        <Icon 
+        <Ionicons 
           name={item.relationship === 'Bản thân' ? 'person' : 'people'} 
           size={24} 
           color="#4285F4" 
@@ -261,7 +261,7 @@ const EmergencyScreen = ({ navigation }) => {
         )}
       </View>
       {currentUser && currentUser.id === item.id && (
-        <Icon name="checkmark-circle" size={24} color="#4285F4" />
+        <Ionicons name="checkmark-circle" size={24} color="#4285F4" />
       )}
     </TouchableOpacity>
   );
@@ -287,7 +287,7 @@ const EmergencyScreen = ({ navigation }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Cấp cứu</Text>
         </View>
@@ -310,7 +310,7 @@ const EmergencyScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Cấp cứu</Text>
       </View>
@@ -322,7 +322,7 @@ const EmergencyScreen = ({ navigation }) => {
           onPress={() => setUserModalVisible(true)}
         >
           <View style={styles.selectedUserIcon}>
-            <Icon 
+            <Ionicons 
               name={currentUser?.relationship === 'Bản thân' ? 'person' : 'people'} 
               size={24} 
               color="#4285F4" 
@@ -347,7 +347,7 @@ const EmergencyScreen = ({ navigation }) => {
               </>
             )}
           </View>
-          <Icon name="chevron-forward" size={24} color="#A0A0A0" />
+          <Ionicons name="chevron-forward" size={24} color="#A0A0A0" />
         </TouchableOpacity>
 
         {/* Services */}
@@ -364,7 +364,7 @@ const EmergencyScreen = ({ navigation }) => {
                 service.selected ? styles.checkboxSelected : {}
               ]}>
                 {service.selected && (
-                  <Icon name="checkmark" size={18} color="#fff" />
+                  <Ionicons name="checkmark" size={18} color="#fff" />
                 )}
               </View>
               <View style={styles.serviceContent}>
@@ -431,7 +431,7 @@ const EmergencyScreen = ({ navigation }) => {
                 style={styles.closeButton}
                 onPress={() => setUserModalVisible(false)}
               >
-                <Icon name="close" size={24} color="#000" />
+                <Ionicons name="close" size={24} color="#000" />
               </TouchableOpacity>
             </View>
             
@@ -459,7 +459,7 @@ const EmergencyScreen = ({ navigation }) => {
                 });
               }}
             >
-              <Icon name="add-circle-outline" size={20} color="#fff" style={styles.addUserIcon} />
+              <Ionicons name="add-circle-outline" size={20} color="#fff" style={styles.addUserIcon} />
               <Text style={styles.addUserText}>Quản lý người thân</Text>
             </TouchableOpacity>
           </View>

@@ -12,7 +12,7 @@ import {
   RefreshControl,
   Linking,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { orderService } from '../services/apiService';
@@ -218,7 +218,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết đơn hàng</Text>
         </View>
@@ -239,12 +239,12 @@ const OrderDetailScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết đơn hàng</Text>
         </View>
         <View style={styles.errorContainer}>
-          <Icon name="receipt-outline" size={60} color="#ddd" />
+          <Ionicons name="receipt-outline" size={60} color="#ddd" />
           <Text style={styles.errorText}>Không tìm thấy thông tin đơn hàng</Text>
         </View>
       </SafeAreaView>
@@ -261,7 +261,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Chi tiết đơn hàng</Text>
         <TouchableOpacity 
@@ -269,7 +269,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
           onPress={handleRefresh}
           disabled={refreshing}
         >
-          <Icon name="refresh" size={20} color="#4285F4" />
+          <Ionicons name="refresh" size={20} color="#4285F4" />
         </TouchableOpacity>
       </View>
 
@@ -291,7 +291,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
               <Text style={styles.orderIdValue}>#{order._id.slice(-8).toUpperCase()}</Text>
             </View>
             <View style={styles.statusSection}>
-              <Icon 
+              <Ionicons 
                 name={getStatusIcon(order.status)} 
                 size={20} 
                 color={getStatusColor(order.status)} 
@@ -316,7 +316,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
         {/* Thông tin bệnh nhân */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="person" size={20} color="#4285F4" />
+            <Ionicons name="person" size={20} color="#4285F4" />
             <Text style={styles.sectionTitle}>Thông tin bệnh nhân</Text>
           </View>
           
@@ -370,7 +370,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
         {order.appointmentInfo && (
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeader}>
-              <Icon name="calendar" size={20} color="#4CAF50" />
+              <Ionicons name="calendar" size={20} color="#4CAF50" />
               <Text style={styles.sectionTitle}>Thông tin lịch hẹn</Text>
             </View>
             
@@ -413,14 +413,14 @@ const OrderDetailScreen = ({ navigation, route }) => {
         {/* Danh sách dịch vụ */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="list" size={20} color="#4285F4" />
+            <Ionicons name="list" size={20} color="#4285F4" />
             <Text style={styles.sectionTitle}>Dịch vụ đã đặt</Text>
           </View>
           
           {order.items.map((item, index) => (
             <View key={index} style={styles.serviceItem}>
               <View style={styles.serviceIconContainer}>
-                <Icon 
+                <Ionicons 
                   name={getServiceIcon(item.service)} 
                   size={20} 
                   color="#4285F4" 
@@ -440,7 +440,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
         {/* Chi phí */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="cash" size={20} color="#4CAF50" />
+            <Ionicons name="cash" size={20} color="#4CAF50" />
             <Text style={styles.sectionTitle}>Chi phí</Text>
           </View>
           
@@ -471,7 +471,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
         {/* Phương thức thanh toán */}
         <View style={styles.sectionCard}>
           <View style={styles.sectionHeader}>
-            <Icon name="card" size={20} color="#FF9800" />
+            <Ionicons name="card" size={20} color="#FF9800" />
             <Text style={styles.sectionTitle}>Thanh toán</Text>
           </View>
           
@@ -504,7 +504,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
         {order.assignedTo && (
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeader}>
-              <Icon name="business" size={20} color="#2196F3" />
+              <Ionicons name="business" size={20} color="#2196F3" />
               <Text style={styles.sectionTitle}>Bệnh viện phụ trách</Text>
             </View>
             
@@ -515,7 +515,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                   style={styles.hospitalContact}
                   onPress={() => handleCall(order.assignedTo.phone)}
                 >
-                  <Icon name="call" size={16} color="#4285F4" />
+                  <Ionicons name="call" size={16} color="#4285F4" />
                   <Text style={styles.hospitalPhone}>{order.assignedTo.phone}</Text>
                 </TouchableOpacity>
               )}
@@ -530,7 +530,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
         {order.note && (
           <View style={styles.sectionCard}>
             <View style={styles.sectionHeader}>
-              <Icon name="document-text" size={20} color="#FF9800" />
+              <Ionicons name="document-text" size={20} color="#FF9800" />
               <Text style={styles.sectionTitle}>Ghi chú</Text>
             </View>
             
@@ -553,7 +553,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
               <ActivityIndicator color="#fff" size="small" />
             ) : (
               <>
-                <Icon name="close-circle" size={20} color="#fff" />
+                <Ionicons name="close-circle" size={20} color="#fff" />
                 <Text style={styles.cancelButtonText}>Hủy đơn hàng</Text>
               </>
             )}

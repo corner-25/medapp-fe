@@ -10,7 +10,7 @@ import {
   Image,
   TextInput,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getHospitals } from '../data/hospitals';
 
@@ -43,14 +43,14 @@ const HospitalsListScreen = ({ navigation }) => {
         </View>
         
         <View style={styles.locationRow}>
-          <Icon name="location" size={14} color="#666" />
+          <Ionicons name="location" size={14} color="#666" />
           <Text style={styles.hospitalAddress}>{item.address}</Text>
         </View>
         
         <View style={styles.ratingRow}>
           <View style={styles.ratingStars}>
             {[...Array(5)].map((_, index) => (
-              <Icon 
+              <Ionicons 
                 key={index}
                 name={index < Math.floor(item.rating) ? "star" : "star-outline"} 
                 size={12} 
@@ -67,7 +67,7 @@ const HospitalsListScreen = ({ navigation }) => {
           {item.description}
         </Text>
       </View>
-      <Icon name="chevron-forward" size={20} color="#ccc" />
+      <Ionicons name="chevron-forward" size={20} color="#ccc" />
     </TouchableOpacity>
   );
 
@@ -81,14 +81,14 @@ const HospitalsListScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Bệnh viện hợp tác</Text>
       </View>
 
       {/* Search Bar */}
       <View style={styles.searchContainer}>
-        <Icon name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
+        <Ionicons name="search" size={20} color="#A0A0A0" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Tìm kiếm bệnh viện..."
@@ -107,7 +107,7 @@ const HospitalsListScreen = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={() => (
           <View style={styles.emptyContainer}>
-            <Icon name="search-outline" size={60} color="#ddd" />
+            <Ionicons name="search-outline" size={60} color="#ddd" />
             <Text style={styles.emptyText}>Không tìm thấy bệnh viện nào</Text>
           </View>
         )}

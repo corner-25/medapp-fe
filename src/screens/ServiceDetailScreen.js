@@ -1,5 +1,5 @@
-// src/screens/ServiceDetailScreen.js - Clean version không hiển thị thông tin người thân
-import React, { useState, useContext } from 'react';
+// src/screens/ServiceDetailScreen.js - Updated to use API
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,33 +10,84 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
-import { getServiceById } from '../data/medicalServices';
-import { cartService } from '../services/apiService';
+import { servicesService, cartService } from '../services/apiService';
 
 const ServiceDetailScreen = ({ navigation, route }) => {
   const { getToken } = useContext(AuthContext);
   const serviceId = route.params?.serviceId;
   const appointmentData = route.params?.appointmentData; // Nhận dữ liệu ngầm
-  const service = getServiceById(serviceId);
-  const [loading, setLoading] = useState(false);
-  
+
+  // State management
+  const [service, setService] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [addingToCart, setAddingToCart] = useState(false);
+
+  // Load service details from API
+  useEffect(() => {
+    loadServiceDetails();
+  }, [serviceId]);
+
+  const loadServiceDetails = async () => {
+    try {
+      setLoading(true);
+      const response = await servicesService.getById(serviceId);
+      console.log('Service detail response:', response);
+
+      if (response.success && response.data) {
+        setService(response.data);
+      } else {
+        throw new Error('Không thể lấy thông tin dịch vụ');
+      }
+    } catch (error) {
+      console.error('Error loading service details:', error);
+      Alert.alert('Lỗi', 'Không thể tải thông tin dịch vụ. Vui lòng thử lại.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Ionicons name="chevron-back" size={24} color="#000" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Chi tiết dịch vụ</Text>
+        </View>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#4285F4" />
+          <Text style={styles.loadingText}>Đang tải thông tin dịch vụ...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // Show error state
   if (!service) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết dịch vụ</Text>
         </View>
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>Không tìm thấy thông tin dịch vụ</Text>
+          <TouchableOpacity style={styles.retryButton} onPress={loadServiceDetails}>
+            <Text style={styles.retryButtonText}>Thử lại</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
@@ -56,7 +107,7 @@ const ServiceDetailScreen = ({ navigation, route }) => {
       return;
     }
 
-    setLoading(true);
+    setAddingToCart(true);
     try {
       console.log('=== DEBUG SERVICE DETAIL - ADD TO CART ===');
       console.log('Service:', service.name);
@@ -123,7 +174,7 @@ const ServiceDetailScreen = ({ navigation, route }) => {
       Alert.alert('Lỗi', 'Không thể thêm vào giỏ hàng. Vui lòng thử lại.');
       console.error('Error adding to cart:', error);
     } finally {
-      setLoading(false);
+      setAddingToCart(false);
     }
   };
 
@@ -137,7 +188,7 @@ const ServiceDetailScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{service.name}</Text>
       </View>
@@ -146,31 +197,51 @@ const ServiceDetailScreen = ({ navigation, route }) => {
         {/* Service Image */}
         <View style={styles.imageContainer}>
           <View style={styles.imagePlaceholder}>
-            <Icon name={getIconName(service.icon)} size={80} color={getIconBackground(service.category)} />
+            <Ionicons name="medical" size={80} color={getIconBackground(service.category)} />
           </View>
         </View>
-        
+
         {/* Service Name and Rating */}
         <View style={styles.serviceTitleContainer}>
           <Text style={styles.serviceTitle}>{service.name}</Text>
           <View style={styles.ratingContainer}>
             {[...Array(5)].map((_, index) => (
-              <Icon 
+              <Ionicons
                 key={index}
-                name="star" 
-                size={16} 
-                color="#FFD700" 
+                name="star"
+                size={16}
+                color="#FFD700"
               />
             ))}
-            <Text style={styles.ratingText}>{service.rating}</Text>
+            <Text style={styles.ratingText}>{service.statistics?.averageRating?.toFixed(1) || '5.0'}</Text>
+            <Text style={styles.reviewCount}>({service.statistics?.reviewCount || 0} đánh giá)</Text>
           </View>
         </View>
-        
+
         {/* Price */}
         <View style={styles.priceContainer}>
-          <Text style={styles.priceText}>{formatCurrency(service.price)} VND</Text>
+          <Text style={styles.priceText}>{formatCurrency(service.price)} {service.currency}</Text>
+          {service.originalPrice > service.price && (
+            <Text style={styles.originalPriceText}>{formatCurrency(service.originalPrice)} {service.currency}</Text>
+          )}
         </View>
-        
+
+        {/* Service Info */}
+        <View style={styles.infoContainer}>
+          <View style={styles.infoRow}>
+            <Ionicons name="time" size={16} color="#666" />
+            <Text style={styles.infoText}>Thời gian: {service.duration}</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Ionicons name="people" size={16} color="#666" />
+            <Text style={styles.infoText}>Độ tuổi: {service.ageRange}</Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Ionicons name="person" size={16} color="#666" />
+            <Text style={styles.infoText}>Giới tính: {service.gender}</Text>
+          </View>
+        </View>
+
         {/* Service Description */}
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionTitle}>Mô tả dịch vụ</Text>
@@ -178,16 +249,42 @@ const ServiceDetailScreen = ({ navigation, route }) => {
             {service.description}
           </Text>
         </View>
+
+        {/* Includes */}
+        {service.includes && service.includes.length > 0 && (
+          <View style={styles.includesContainer}>
+            <Text style={styles.includesTitle}>Bao gồm:</Text>
+            {service.includes.map((item, index) => (
+              <View key={index} style={styles.includeItem}>
+                <Ionicons name="checkmark-circle" size={16} color="#4CAF50" />
+                <Text style={styles.includeText}>{item}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {/* Benefits */}
+        {service.benefits && service.benefits.length > 0 && (
+          <View style={styles.benefitsContainer}>
+            <Text style={styles.benefitsTitle}>Lợi ích:</Text>
+            {service.benefits.map((benefit, index) => (
+              <View key={index} style={styles.benefitItem}>
+                <Ionicons name="star" size={16} color="#FF9800" />
+                <Text style={styles.benefitText}>{benefit}</Text>
+              </View>
+            ))}
+          </View>
+        )}
       </ScrollView>
       
       {/* Book Button */}
       <View style={styles.footer}>
-        <TouchableOpacity 
-          style={[styles.bookButton, loading && styles.bookButtonDisabled]}
+        <TouchableOpacity
+          style={[styles.bookButton, addingToCart && styles.bookButtonDisabled]}
           onPress={handleAddToCart}
-          disabled={loading}
+          disabled={addingToCart}
         >
-          {loading ? (
+          {addingToCart ? (
             <ActivityIndicator color="#fff" size="small" />
           ) : (
             <Text style={styles.bookButtonText}>Thêm vào giỏ hàng</Text>
@@ -243,6 +340,100 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 16,
     color: '#666',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 10,
+  },
+  retryButton: {
+    backgroundColor: '#4285F4',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginTop: 15,
+  },
+  retryButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  reviewCount: {
+    fontSize: 14,
+    color: '#666',
+    marginLeft: 5,
+  },
+  originalPriceText: {
+    fontSize: 16,
+    color: '#999',
+    textDecorationLine: 'line-through',
+    marginTop: 5,
+  },
+  infoContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    backgroundColor: '#f8f9fa',
+    marginHorizontal: 20,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  infoText: {
+    fontSize: 14,
+    color: '#333',
+    marginLeft: 8,
+  },
+  includesContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  includesTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  includeItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 8,
+  },
+  includeText: {
+    fontSize: 14,
+    color: '#333',
+    marginLeft: 8,
+    flex: 1,
+  },
+  benefitsContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 100,
+  },
+  benefitsTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  benefitItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 8,
+  },
+  benefitText: {
+    fontSize: 14,
+    color: '#333',
+    marginLeft: 8,
+    flex: 1,
   },
   content: {
     flex: 1,

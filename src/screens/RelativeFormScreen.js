@@ -13,7 +13,7 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { relativesService } from '../services/apiService';
@@ -136,7 +136,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>
           {isEditing ? 'Chỉnh sửa hồ sơ' : 'Thêm hồ sơ mới'}
@@ -152,7 +152,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Họ và tên <Text style={styles.requiredStar}>*</Text></Text>
             <View style={styles.inputWrapper}>
-              <Icon name="person-outline" size={20} color="#888" style={styles.inputIcon} />
+              <Ionicons name="person-outline" size={20} color="#888" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Nhập họ và tên"
@@ -171,11 +171,11 @@ const RelativeFormScreen = ({ navigation, route }) => {
               onPress={() => setShowDatePicker(true)}
               disabled={loading}
             >
-              <Icon name="calendar-outline" size={20} color="#888" style={styles.inputIcon} />
+              <Ionicons name="calendar-outline" size={20} color="#888" style={styles.inputIcon} />
               <Text style={[styles.input, styles.dateText]}>
                 {formatDate(relative.birthDate)} ({calculateAge(relative.birthDate)} tuổi)
               </Text>
-              <Icon name="chevron-down" size={16} color="#888" />
+              <Ionicons name="chevron-down" size={16} color="#888" />
             </TouchableOpacity>
             {showDatePicker && (
               <DateTimePicker
@@ -192,7 +192,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Số điện thoại</Text>
             <View style={styles.inputWrapper}>
-              <Icon name="call-outline" size={20} color="#888" style={styles.inputIcon} />
+              <Ionicons name="call-outline" size={20} color="#888" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Nhập số điện thoại"
@@ -208,7 +208,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Địa chỉ</Text>
             <View style={styles.inputWrapper}>
-              <Icon name="location-outline" size={20} color="#888" style={styles.inputIcon} />
+              <Ionicons name="location-outline" size={20} color="#888" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Nhập địa chỉ"
@@ -227,11 +227,11 @@ const RelativeFormScreen = ({ navigation, route }) => {
               onPress={() => setShowRelationshipPicker(!showRelationshipPicker)}
               disabled={loading}
             >
-              <Icon name="people-outline" size={20} color="#888" style={styles.inputIcon} />
+              <Ionicons name="people-outline" size={20} color="#888" style={styles.inputIcon} />
               <Text style={[styles.input, styles.dateText]}>
                 {relative.relationship}
               </Text>
-              <Icon name="chevron-down" size={16} color="#888" />
+              <Ionicons name="chevron-down" size={16} color="#888" />
             </TouchableOpacity>
           </View>
           
@@ -258,7 +258,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
                     {item}
                   </Text>
                   {relative.relationship === item && (
-                    <Icon name="checkmark" size={18} color="#fff" />
+                    <Ionicons name="checkmark" size={18} color="#fff" />
                   )}
                 </TouchableOpacity>
               ))}
@@ -269,7 +269,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Mã thẻ bảo hiểm y tế</Text>
             <View style={styles.inputWrapper}>
-              <Icon name="medical-outline" size={20} color="#888" style={styles.inputIcon} />
+              <Ionicons name="medical-outline" size={20} color="#888" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Nhập mã thẻ BHYT"
@@ -284,7 +284,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>CMND/CCCD</Text>
             <View style={styles.inputWrapper}>
-              <Icon name="card-outline" size={20} color="#888" style={styles.inputIcon} />
+              <Ionicons name="card-outline" size={20} color="#888" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Nhập CMND/CCCD"
@@ -306,7 +306,7 @@ const RelativeFormScreen = ({ navigation, route }) => {
               <ActivityIndicator color="#fff" size="small" />
             ) : (
               <>
-                <Icon name="save-outline" size={20} color="#fff" style={styles.saveButtonIcon} />
+                <Ionicons name="save-outline" size={20} color="#fff" style={styles.saveButtonIcon} />
                 <Text style={styles.saveButtonText}>
                   {isEditing ? 'Cập nhật thông tin' : 'Thêm hồ sơ mới'}
                 </Text>

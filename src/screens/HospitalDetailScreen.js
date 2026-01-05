@@ -11,7 +11,7 @@ import {
   Linking,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getHospitalById } from '../data/hospitals';
 
@@ -27,7 +27,7 @@ const HospitalDetailScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Chi tiết bệnh viện</Text>
         </View>
@@ -97,7 +97,7 @@ const HospitalDetailScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Chi tiết bệnh viện</Text>
       </View>
@@ -122,7 +122,7 @@ const HospitalDetailScreen = ({ navigation, route }) => {
           <View style={styles.ratingContainer}>
             <View style={styles.ratingStars}>
               {[...Array(5)].map((_, index) => (
-                <Icon 
+                <Ionicons 
                   key={index}
                   name={index < Math.floor(safeHospital.rating) ? "star" : "star-outline"} 
                   size={16} 
@@ -139,31 +139,31 @@ const HospitalDetailScreen = ({ navigation, route }) => {
 
           {/* Address */}
           <View style={styles.detailRow}>
-            <Icon name="location-outline" size={20} color="#4285F4" />
+            <Ionicons name="location-outline" size={20} color="#4285F4" />
             <Text style={styles.detailText}>{safeHospital.address}</Text>
           </View>
 
           {/* Working Hours */}
           <View style={styles.detailRow}>
-            <Icon name="time-outline" size={20} color="#4285F4" />
+            <Ionicons name="time-outline" size={20} color="#4285F4" />
             <Text style={styles.detailText}>Giờ làm việc: {safeHospital.workingHours}</Text>
           </View>
 
           {/* Phone */}
           <TouchableOpacity style={styles.detailRow} onPress={handleCall}>
-            <Icon name="call-outline" size={20} color="#4285F4" />
+            <Ionicons name="call-outline" size={20} color="#4285F4" />
             <Text style={[styles.detailText, styles.linkText]}>{safeHospital.phone}</Text>
           </TouchableOpacity>
 
           {/* Email */}
           <TouchableOpacity style={styles.detailRow} onPress={handleEmail}>
-            <Icon name="mail-outline" size={20} color="#4285F4" />
+            <Ionicons name="mail-outline" size={20} color="#4285F4" />
             <Text style={[styles.detailText, styles.linkText]}>{safeHospital.email}</Text>
           </TouchableOpacity>
 
           {/* Website */}
           <TouchableOpacity style={styles.detailRow} onPress={handleWebsite}>
-            <Icon name="globe-outline" size={20} color="#4285F4" />
+            <Ionicons name="globe-outline" size={20} color="#4285F4" />
             <Text style={[styles.detailText, styles.linkText]}>Trang web</Text>
           </TouchableOpacity>
         </View>
@@ -175,14 +175,14 @@ const HospitalDetailScreen = ({ navigation, route }) => {
             <View style={styles.servicesList}>
               {safeHospital.services.map((service, index) => (
                 <View key={index} style={styles.serviceItem}>
-                  <Icon name="checkmark-circle" size={16} color="#4CAF50" />
+                  <Ionicons name="checkmark-circle" size={16} color="#4CAF50" />
                   <Text style={styles.serviceText}>{service}</Text>
                 </View>
               ))}
             </View>
           ) : (
             <View style={styles.noServicesContainer}>
-              <Icon name="information-circle-outline" size={20} color="#999" />
+              <Ionicons name="information-circle-outline" size={20} color="#999" />
               <Text style={styles.noServicesText}>Chưa có thông tin dịch vụ</Text>
             </View>
           )}
@@ -198,7 +198,7 @@ const HospitalDetailScreen = ({ navigation, route }) => {
           style={styles.bookButton}
           onPress={handleBookAppointment}
         >
-          <Icon name="calendar" size={20} color="#fff" style={styles.bookButtonIcon} />
+          <Ionicons name="calendar" size={20} color="#fff" style={styles.bookButtonIcon} />
           <Text style={styles.bookButtonText}>Đặt lịch khám</Text>
         </TouchableOpacity>
       </View>

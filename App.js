@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { View, Text, Linking } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Tạo Context cho việc xác thực
@@ -57,6 +57,7 @@ import AnalysisScreen from './src/screens/AnalysisScreen';
 import AnalysisDetailScreen from './src/screens/AnalysisDetailScreen';
 import VaccinesScreen from './src/screens/VaccinesScreen';
 import MedicalRecordsScreen from './src/screens/MedicalRecordsScreen';
+import AppointmentsScreen from './src/screens/AppointmentsScreen';
 
 // Import màn hình đơn hàng
 import OrderDetailScreen from './src/screens/OrderDetailScreen';
@@ -122,6 +123,9 @@ function MedicalStackScreen() {
       {/* Màn hình Forgot Password - MỚI */}
       <MedicalStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <MedicalStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+
+      {/* Màn hình lịch hẹn */}
+      <MedicalStack.Screen name="AppointmentsScreen" component={AppointmentsScreen} />
     </MedicalStack.Navigator>
   );
 }
@@ -144,6 +148,7 @@ function ReportStackScreen() {
       <ReportStack.Screen name="AnalysisDetailScreen" component={AnalysisDetailScreen} />
       <ReportStack.Screen name="VaccinesScreen" component={VaccinesScreen} />
       <ReportStack.Screen name="MedicalRecordsScreen" component={MedicalRecordsScreen} />
+      <ReportStack.Screen name="AppointmentsScreen" component={AppointmentsScreen} />
     </ReportStack.Navigator>
   );
 }
@@ -220,7 +225,7 @@ function MainApp() {
             iconName = focused ? 'person' : 'person-outline';
           }
 
-          return <Icon name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#4285F4',
         tabBarInactiveTintColor: 'gray',

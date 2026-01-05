@@ -10,7 +10,7 @@ import {
   RefreshControl,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { API_BASE_URL } from '../config/settings'; // Import config
@@ -233,7 +233,7 @@ const NotificationScreen = ({ navigation }) => {
         styles.iconContainer,
         { backgroundColor: getNotificationColor(item.type) }
       ]}>
-        <Icon 
+        <Ionicons 
           name={getNotificationIcon(item.type)} 
           size={24} 
           color="white" 
@@ -261,7 +261,7 @@ const NotificationScreen = ({ navigation }) => {
   const renderEmptyNotifications = () => (
     <View style={styles.emptyContainer}>
       <View style={styles.emptyIconContainer}>
-        <Icon name="notifications-outline" size={80} color="#E0E0E0" />
+        <Ionicons name="notifications-outline" size={80} color="#E0E0E0" />
       </View>
       <Text style={styles.emptyTitle}>Chưa có thông báo</Text>
       <Text style={styles.emptyMessage}>

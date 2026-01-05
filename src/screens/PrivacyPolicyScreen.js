@@ -9,7 +9,7 @@ import {
   StatusBar,
   Linking,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const PrivacyPolicyScreen = ({ navigation }) => {
@@ -32,7 +32,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Chính sách quyền riêng tư</Text>
       </View>
@@ -41,7 +41,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Ngày cập nhật */}
         <View style={styles.updateInfo}>
-          <Icon name="calendar-outline" size={16} color="#666" />
+          <Ionicons name="calendar-outline" size={16} color="#666" />
           <Text style={styles.updateText}>Cập nhật lần cuối: 15/12/2024</Text>
         </View>
 
@@ -183,21 +183,21 @@ const PrivacyPolicyScreen = ({ navigation }) => {
           
           <View style={styles.contactInfo}>
             <View style={styles.contactItem}>
-              <Icon name="mail-outline" size={16} color="#4285F4" />
+              <Ionicons name="mail-outline" size={16} color="#4285F4" />
               <TouchableOpacity onPress={() => handleContactPress('email', 'privacy@healthcare.vn')}>
                 <Text style={styles.contactText}>privacy@healthcare.vn</Text>
               </TouchableOpacity>
             </View>
             
             <View style={styles.contactItem}>
-              <Icon name="call-outline" size={16} color="#4285F4" />
+              <Ionicons name="call-outline" size={16} color="#4285F4" />
               <TouchableOpacity onPress={() => handleContactPress('phone', '1900-1234')}>
                 <Text style={styles.contactText}>1900-1234</Text>
               </TouchableOpacity>
             </View>
             
             <View style={styles.contactItem}>
-              <Icon name="location-outline" size={16} color="#4285F4" />
+              <Ionicons name="location-outline" size={16} color="#4285F4" />
               <Text style={styles.contactAddress}>
                 123 Đường Nguyễn Huệ, Quận 1, TP.HCM
               </Text>

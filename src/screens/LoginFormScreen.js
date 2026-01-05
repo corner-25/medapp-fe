@@ -13,7 +13,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -181,7 +181,7 @@ const LoginFormScreen = ({ navigation }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Đăng nhập</Text>
         
@@ -195,7 +195,7 @@ const LoginFormScreen = ({ navigation }) => {
           ]}
           onPress={checkApiConnection}
         >
-          <Icon 
+          <Ionicons 
             name={
               connectionStatus === 'connected' ? 'checkmark-circle' : 
               connectionStatus === 'failed' ? 'close-circle' : 
@@ -218,7 +218,7 @@ const LoginFormScreen = ({ navigation }) => {
         <ScrollView style={styles.formContainer}>
           <Text style={styles.label}>Email hoặc số điện thoại</Text>
           <View style={styles.inputContainer}>
-            <Icon name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập email hoặc số điện thoại"
@@ -232,7 +232,7 @@ const LoginFormScreen = ({ navigation }) => {
           
           <Text style={styles.label}>Mật khẩu</Text>
           <View style={styles.inputContainer}>
-            <Icon name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
+            <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập mật khẩu"
@@ -245,7 +245,7 @@ const LoginFormScreen = ({ navigation }) => {
               style={styles.passwordToggle}
               onPress={() => setShowPassword(!showPassword)}
             >
-              <Icon name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
+              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
             </TouchableOpacity>
           </View>
           
@@ -269,7 +269,7 @@ const LoginFormScreen = ({ navigation }) => {
           {/* API connection status information */}
           {connectionStatus === 'failed' && (
             <View style={styles.apiErrorContainer}>
-              <Icon name="warning-outline" size={20} color="#00000" />
+              <Ionicons name="warning-outline" size={20} color="#00000" />
               <Text style={styles.apiErrorText}>
                 Server: {API_BASE_URL}
               </Text>
@@ -284,7 +284,7 @@ const LoginFormScreen = ({ navigation }) => {
           
           {connectionStatus === 'connected' && (
             <View style={styles.apiSuccessContainer}>
-              <Icon name="checkmark-circle-outline" size={16} color="#4CAF50" />
+              <Ionicons name="checkmark-circle-outline" size={16} color="#4CAF50" />
               <Text style={styles.apiSuccessText}>
                 Kết nối server thành công
               </Text>
@@ -299,13 +299,13 @@ const LoginFormScreen = ({ navigation }) => {
           
           <View style={styles.socialContainer}>
             <TouchableOpacity style={styles.socialButton}>
-              <Icon name="logo-google" size={24} color="#DB4437" />
+              <Ionicons name="logo-google" size={24} color="#DB4437" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
-              <Icon name="logo-facebook" size={24} color="#4267B2" />
+              <Ionicons name="logo-facebook" size={24} color="#4267B2" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
-              <Icon name="logo-apple" size={24} color="#000" />
+              <Ionicons name="logo-apple" size={24} color="#000" />
             </TouchableOpacity>
           </View>
           

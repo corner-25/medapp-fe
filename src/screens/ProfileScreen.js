@@ -9,7 +9,7 @@ import {
   Alert,
   ActivityIndicator
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -145,7 +145,7 @@ const ProfileScreen = ({ navigation }) => {
         {/* Thông tin người dùng */}
         <View style={styles.profileSection}>
           <View style={styles.avatar}>
-            <Icon name="person" size={40} color="#4285F4" />
+            <Ionicons name="person" size={40} color="#4285F4" />
           </View>
           <View style={styles.profileInfo}>
             {isLoggedIn && userInfo ? (
@@ -176,9 +176,9 @@ const ProfileScreen = ({ navigation }) => {
               }
             }}
           >
-            <Icon name="person-outline" size={24} color="#4285F4" style={styles.optionIcon} />
+            <Ionicons name="person-outline" size={24} color="#4285F4" style={styles.optionIcon} />
             <Text style={styles.optionText}>Thông tin cá nhân</Text>
-            <Icon name="chevron-forward" size={20} color="#ccc" />
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           
           <TouchableOpacity 
@@ -191,21 +191,21 @@ const ProfileScreen = ({ navigation }) => {
               }
             }}
           >
-            <Icon name="people-outline" size={24} color="#4285F4" style={styles.optionIcon} />
+            <Ionicons name="people-outline" size={24} color="#4285F4" style={styles.optionIcon} />
             <Text style={styles.optionText}>Quản lý người thân</Text>
-            <Icon name="chevron-forward" size={20} color="#ccc" />
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           
           <TouchableOpacity 
             style={styles.optionItem}
             onPress={() => navigation.navigate('Premium')}
           >
-            <Icon name="star-outline" size={24} color="#FFC107" style={styles.optionIcon} />
+            <Ionicons name="star-outline" size={24} color="#FFC107" style={styles.optionIcon} />
             <Text style={styles.optionText}>Nâng cấp tài khoản</Text>
             <View style={styles.premiumBadge}>
               <Text style={styles.premiumBadgeText}>Premium</Text>
             </View>
-            <Icon name="chevron-forward" size={20} color="#ccc" />
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           
           <TouchableOpacity 
@@ -218,27 +218,27 @@ const ProfileScreen = ({ navigation }) => {
               }
             }}
           >
-            <Icon name="card-outline" size={24} color="#4285F4" style={styles.optionIcon} />
+            <Ionicons name="card-outline" size={24} color="#4285F4" style={styles.optionIcon} />
             <Text style={styles.optionText}>Phương thức thanh toán</Text>
-            <Icon name="chevron-forward" size={20} color="#ccc" />
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           
           <TouchableOpacity 
             style={styles.optionItem}
             onPress={() => navigation.navigate('PrivacySettings')}
           >
-            <Icon name="shield-outline" size={24} color="#4285F4" style={styles.optionIcon} />
+            <Ionicons name="shield-outline" size={24} color="#4285F4" style={styles.optionIcon} />
             <Text style={styles.optionText}>Quyền riêng tư và Bảo mật</Text>
-            <Icon name="chevron-forward" size={20} color="#ccc" />
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           
           <TouchableOpacity 
             style={styles.optionItem}
             onPress={() => navigation.navigate('HelpSupport')}
           >
-            <Icon name="help-circle-outline" size={24} color="#4285F4" style={styles.optionIcon} />
+            <Ionicons name="help-circle-outline" size={24} color="#4285F4" style={styles.optionIcon} />
             <Text style={styles.optionText}>Trợ giúp & Hỗ trợ</Text>
-            <Icon name="chevron-forward" size={20} color="#ccc" />
+            <Ionicons name="chevron-forward" size={20} color="#ccc" />
           </TouchableOpacity>
           
           {isLoggedIn ? (
@@ -246,7 +246,7 @@ const ProfileScreen = ({ navigation }) => {
               style={[styles.optionItem, styles.logoutOption]}
               onPress={handleSignOut}
             >
-              <Icon name="log-out-outline" size={24} color="#E53935" style={styles.optionIcon} />
+              <Ionicons name="log-out-outline" size={24} color="#E53935" style={styles.optionIcon} />
               <Text style={styles.logoutText}>Đăng xuất</Text>
             </TouchableOpacity>
           ) : (
@@ -254,7 +254,7 @@ const ProfileScreen = ({ navigation }) => {
               style={[styles.optionItem, styles.loginOption]}
               onPress={handleLogin}
             >
-              <Icon name="log-in-outline" size={24} color="#4285F4" style={styles.optionIcon} />
+              <Ionicons name="log-in-outline" size={24} color="#4285F4" style={styles.optionIcon} />
               <Text style={styles.loginText}>Đăng nhập</Text>
             </TouchableOpacity>
           )}

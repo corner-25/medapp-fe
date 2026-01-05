@@ -11,7 +11,7 @@ import {
   RefreshControl,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { allergiesService } from '../services/apiService';
@@ -140,7 +140,7 @@ const AllergiesScreen = ({ navigation, route }) => {
         <View style={styles.allergyTitleSection}>
           <Text style={styles.allergyName}>{item.name}</Text>
           <View style={[styles.severityBadge, { backgroundColor: `${getSeverityColor(item.severity)}15` }]}>
-            <Icon 
+            <Ionicons 
               name={getSeverityIcon(item.severity)} 
               size={14} 
               color={getSeverityColor(item.severity)} 
@@ -158,7 +158,7 @@ const AllergiesScreen = ({ navigation, route }) => {
       
       <View style={styles.allergyFooter}>
         <View style={styles.dateSection}>
-          <Icon name="calendar-outline" size={14} color="#666" />
+          <Ionicons name="calendar-outline" size={14} color="#666" />
           <Text style={styles.allergyDate}>{formatDate(item.date)}</Text>
         </View>
       </View>
@@ -168,7 +168,7 @@ const AllergiesScreen = ({ navigation, route }) => {
   // Render empty state
   const renderEmptyState = () => (
     <View style={styles.emptyContainer}>
-      <Icon name="medical-outline" size={80} color="#E0E0E0" />
+      <Ionicons name="medical-outline" size={80} color="#E0E0E0" />
       <Text style={styles.emptyTitle}>Chưa có thông tin dị ứng</Text>
       <Text style={styles.emptyMessage}>
         {selectedPatient?.relationship === 'Bản thân' 
@@ -192,7 +192,7 @@ const AllergiesScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Thông tin dị ứng</Text>
         </View>
@@ -214,7 +214,7 @@ const AllergiesScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Thông tin dị ứng</Text>
       </View>
@@ -223,7 +223,7 @@ const AllergiesScreen = ({ navigation, route }) => {
       {selectedPatient && (
         <View style={styles.patientInfo}>
           <View style={styles.patientIconContainer}>
-            <Icon 
+            <Ionicons 
               name={selectedPatient.relationship === 'Bản thân' ? 'person' : 'people'} 
               size={20} 
               color="#4285F4" 

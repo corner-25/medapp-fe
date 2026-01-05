@@ -11,13 +11,13 @@ import {
   RefreshControl,
   ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../../App';
 import { vaccinesService } from '../services/apiService';
 
 const VaccinesScreen = ({ navigation, route }) => {
-  const { getToken, getUserInfo } = useContext(AuthContext);
+  const { getToken } = useContext(AuthContext);
   
   // Get patient info from ReportScreen or route params
   const selectedPatient = route.params?.selectedPatient;
@@ -54,20 +54,52 @@ const VaccinesScreen = ({ navigation, route }) => {
       }
 
       // Load vaccines from API for relatives
+      const token = await getToken();
+      if (!token) {
+        Alert.alert('Lỗi xác thực', 'Vui lòng đăng nhập lại');
+        navigation.navigate('LoginScreen');
+        return;
+      }
+
       const vaccinesData = await vaccinesService.getByRelativeId(selectedPatient._id);
       console.log('💉 Loaded vaccines from API:', vaccinesData);
-      setVaccines(vaccinesData || []);
+
+      // Ensure data is array and sort by date
+      const sortedVaccines = Array.isArray(vaccinesData) ?
+        vaccinesData.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)) : [];
+
+      setVaccines(sortedVaccines);
 
     } catch (error) {
       console.error('❌ Error loading vaccines:', error);
-      
-      if (error.message?.includes('404')) {
+
+      if (error.message?.includes('404') || error.message?.includes('Không tìm thấy')) {
         // No vaccines found - this is normal
         setVaccines([]);
-      } else if (error.message?.includes('Network')) {
-        Alert.alert('Lỗi kết nối', 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet.');
+      } else if (error.message?.includes('Network') || error.message?.includes('Failed to fetch')) {
+        Alert.alert(
+          'Lỗi kết nối',
+          'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet và thử lại.',
+          [
+            { text: 'Thử lại', onPress: () => loadVaccinesData() },
+            { text: 'Đóng', style: 'cancel' }
+          ]
+        );
+      } else if (error.message?.includes('401') || error.message?.includes('403')) {
+        Alert.alert(
+          'Lỗi xác thực',
+          'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
+          [{ text: 'Đăng nhập', onPress: () => navigation.navigate('LoginScreen') }]
+        );
       } else {
-        Alert.alert('Lỗi', 'Không thể tải thông tin tiêm chủng. Vui lòng thử lại sau.');
+        Alert.alert(
+          'Lỗi',
+          'Không thể tải thông tin tiêm chủng. Vui lòng thử lại sau.',
+          [
+            { text: 'Thử lại', onPress: () => loadVaccinesData() },
+            { text: 'Đóng', style: 'cancel' }
+          ]
+        );
       }
     } finally {
       setLoading(false);
@@ -129,7 +161,7 @@ const VaccinesScreen = ({ navigation, route }) => {
         <View style={styles.vaccineInfo}>
           <Text style={styles.vaccineName}>{item.name}</Text>
           <View style={[styles.statusBadge, { backgroundColor: `${getVaccineStatusColor(item)}15` }]}>
-            <Icon 
+            <Ionicons 
               name="shield-checkmark-outline" 
               size={14} 
               color={getVaccineStatusColor(item)} 
@@ -176,7 +208,7 @@ const VaccinesScreen = ({ navigation, route }) => {
       {item.nextDose && item.nextDose.scheduled && (
         <View style={styles.nextDoseContainer}>
           <View style={styles.nextDoseHeader}>
-            <Icon name="calendar-outline" size={16} color="#FF9800" />
+            <Ionicons name="calendar-outline" size={16} color="#FF9800" />
             <Text style={styles.nextDoseTitle}>Mũi tiêm tiếp theo</Text>
           </View>
           <Text style={styles.nextDoseInfo}>
@@ -190,7 +222,7 @@ const VaccinesScreen = ({ navigation, route }) => {
   // Render empty state
   const renderEmptyState = () => (
     <View style={styles.emptyContainer}>
-      <Icon name="shield-checkmark-outline" size={80} color="#E0E0E0" />
+      <Ionicons name="shield-checkmark-outline" size={80} color="#E0E0E0" />
       <Text style={styles.emptyTitle}>Chưa có thông tin tiêm chủng</Text>
       <Text style={styles.emptyMessage}>
         {selectedPatient?.relationship === 'Bản thân' 
@@ -223,7 +255,7 @@ const VaccinesScreen = ({ navigation, route }) => {
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <Icon name="chevron-back" size={24} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Thông tin tiêm chủng</Text>
         </View>
@@ -245,7 +277,7 @@ const VaccinesScreen = ({ navigation, route }) => {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="chevron-back" size={24} color="#000" />
+          <Ionicons name="chevron-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Thông tin tiêm chủng</Text>
       </View>
@@ -254,7 +286,7 @@ const VaccinesScreen = ({ navigation, route }) => {
       {selectedPatient && (
         <View style={styles.patientInfo}>
           <View style={styles.patientIconContainer}>
-            <Icon 
+            <Ionicons 
               name={selectedPatient.relationship === 'Bản thân' ? 'person' : 'people'} 
               size={20} 
               color="#4285F4" 
@@ -298,7 +330,7 @@ const VaccinesScreen = ({ navigation, route }) => {
                 style={styles.scheduleButton}
                 onPress={handleScheduleNextDose}
               >
-                <Icon name="calendar-outline" size={20} color="white" />
+                <Ionicons name="calendar-outline" size={20} color="white" />
                 <Text style={styles.scheduleButtonText}>Lên lịch tiêm chủng</Text>
               </TouchableOpacity>
             </View>
