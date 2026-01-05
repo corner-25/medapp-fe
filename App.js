@@ -57,7 +57,6 @@ import AnalysisScreen from './src/screens/AnalysisScreen';
 import AnalysisDetailScreen from './src/screens/AnalysisDetailScreen';
 import VaccinesScreen from './src/screens/VaccinesScreen';
 import MedicalRecordsScreen from './src/screens/MedicalRecordsScreen';
-import AppointmentsScreen from './src/screens/AppointmentsScreen';
 
 // Import màn hình đơn hàng
 import OrderDetailScreen from './src/screens/OrderDetailScreen';
@@ -123,9 +122,6 @@ function MedicalStackScreen() {
       {/* Màn hình Forgot Password - MỚI */}
       <MedicalStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <MedicalStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-
-      {/* Màn hình lịch hẹn */}
-      <MedicalStack.Screen name="AppointmentsScreen" component={AppointmentsScreen} />
     </MedicalStack.Navigator>
   );
 }
@@ -148,7 +144,6 @@ function ReportStackScreen() {
       <ReportStack.Screen name="AnalysisDetailScreen" component={AnalysisDetailScreen} />
       <ReportStack.Screen name="VaccinesScreen" component={VaccinesScreen} />
       <ReportStack.Screen name="MedicalRecordsScreen" component={MedicalRecordsScreen} />
-      <ReportStack.Screen name="AppointmentsScreen" component={AppointmentsScreen} />
     </ReportStack.Navigator>
   );
 }
