@@ -17,7 +17,7 @@ import { servicesService } from '../services/apiService';
 
 const SubServicesListScreen = ({ navigation, route }) => {
   // Lấy tên danh mục từ route params
-  const { categoryName, appointmentData } = route.params;
+  const { categoryId, categoryName, appointmentData } = route.params;
 
   // State management
   const [services, setServices] = useState([]);
@@ -27,18 +27,21 @@ const SubServicesListScreen = ({ navigation, route }) => {
   // Lấy danh sách dịch vụ từ API
   useEffect(() => {
     loadServicesByCategory();
-  }, [categoryName]);
+  }, [categoryId]);
 
   const loadServicesByCategory = async () => {
     try {
       setLoading(true);
-      const response = await servicesService.getByCategory(categoryName);
+      // Use categoryId (English) instead of categoryName (Vietnamese)
+      const response = await servicesService.getByCategory(categoryId);
       console.log('Services by category response:', response);
 
-      if (response.success && response.data.services) {
-        setServices(response.data.services);
+      // Backend returns { services, category, total } directly
+      if (response && Array.isArray(response.services)) {
+        setServices(response.services);
       } else {
-        throw new Error('Không thể lấy danh sách dịch vụ');
+        // If no services found, set empty array instead of throwing error
+        setServices([]);
       }
     } catch (error) {
       console.error('Error loading services:', error);
