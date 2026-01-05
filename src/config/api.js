@@ -79,6 +79,8 @@ export const API_ENDPOINTS = {
   // Medical Services endpoints
   MEDICAL_SERVICES: `${API_BASE_URL}/api/medical-services`,
   MEDICAL_SERVICE_BY_ID: (id) => `${API_BASE_URL}/api/medical-services/${id}`,
+  SERVICE_BY_ID: (id) => `${API_BASE_URL}/api/medical-services/${id}`, // Alias for compatibility
+  SERVICES: `${API_BASE_URL}/api/medical-services`, // Alias for compatibility
   SERVICES_POPULAR: `${API_BASE_URL}/api/medical-services/popular`,
   SERVICES_CATEGORY: (category) => `${API_BASE_URL}/api/medical-services/category/${category}`,
   SERVICES_SEARCH: `${API_BASE_URL}/api/medical-services/search`,
