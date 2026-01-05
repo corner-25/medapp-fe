@@ -37,6 +37,7 @@ export const API_ENDPOINTS = {
   // Relatives endpoints
   RELATIVES: `${API_BASE_URL}/api/relatives`,
   RELATIVE_BY_ID: (id) => `${API_BASE_URL}/api/relatives/${id}`,
+  RELATIVE_HEALTH_INFO: (id) => `${API_BASE_URL}/api/relatives/${id}/health`,
   
   // Appointments endpoints
   APPOINTMENTS: `${API_BASE_URL}/api/appointments`,
@@ -74,6 +75,15 @@ export const API_ENDPOINTS = {
   ORDER_BY_ID: (id) => `${API_BASE_URL}/api/orders/${id}`,
   ORDER_PAY: (id) => `${API_BASE_URL}/api/orders/${id}/pay`,
   ORDER_CANCEL: (id) => `${API_BASE_URL}/api/orders/${id}/cancel`,
+
+  // Medical Services endpoints
+  MEDICAL_SERVICES: `${API_BASE_URL}/api/medical-services`,
+  MEDICAL_SERVICE_BY_ID: (id) => `${API_BASE_URL}/api/medical-services/${id}`,
+  SERVICES_POPULAR: `${API_BASE_URL}/api/medical-services/popular`,
+  SERVICES_CATEGORY: (category) => `${API_BASE_URL}/api/medical-services/category/${category}`,
+  SERVICES_SEARCH: `${API_BASE_URL}/api/medical-services/search`,
+  SERVICES_CATEGORIES: `${API_BASE_URL}/api/medical-services/categories`,
+  SERVICES_STATS: `${API_BASE_URL}/api/medical-services/stats`,
 
   // Health check endpoint
   HEALTH: `${API_BASE_URL}/api/health`,
