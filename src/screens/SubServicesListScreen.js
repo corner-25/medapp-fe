@@ -59,7 +59,8 @@ const SubServicesListScreen = ({ navigation, route }) => {
   // Xử lý khi chọn một dịch vụ
   const handleServicePress = (service) => {
     navigation.navigate('ServiceDetail', {
-      serviceId: service.id,
+      serviceId: service._id || service.id, // MongoDB uses _id
+      service: service, // Pass full service object for immediate display
       appointmentData: appointmentData // Truyền thông tin đặt khám ngầm
     });
   };
@@ -118,11 +119,15 @@ const SubServicesListScreen = ({ navigation, route }) => {
                     {service.description}
                   </Text>
                   <Text style={styles.servicePrice}>
-                    {formatCurrency(service.price)} {service.currency}
+                    {formatCurrency(service.price)} ₫
                   </Text>
                   <View style={styles.serviceDetails}>
-                    <Text style={styles.serviceDuration}>⏱ {service.duration}</Text>
-                    <Text style={styles.serviceAge}>👤 {service.ageRange}</Text>
+                    <Text style={styles.serviceDuration}>⏱ {service.duration || 60} phút</Text>
+                    <Text style={styles.serviceAge}>
+                      👤 {service.targetAudience && service.targetAudience.length > 0
+                        ? service.targetAudience.join(', ')
+                        : 'Tất cả'}
+                    </Text>
                   </View>
                 </View>
                 <Ionicons name="chevron-forward" size={20} color="#A0A0A0" />
